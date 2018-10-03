@@ -1,0 +1,9 @@
+<div class="container" id="alertservice">
+        <div ng-repeat="alert in asc.alerts">
+             <div ng-class="'alert alert-' + (alert.type || 'warning') + ' alert-dismissible'" data-auto-dismiss="20">
+                 <button type="button" class="close" data-dismiss="alert" ng-click="asc.closeAlert($index)">&times;</button>
+                 <strong>{{alert.errorType}}:</strong> {{alert.msg}}
+             </div>
+        </div>
+        <!--<button type="button" class='btn btn-default' ng-click="asc.clearAlerts()">Clear Alerts</button>-->
+</div>

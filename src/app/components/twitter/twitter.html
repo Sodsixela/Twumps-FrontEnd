@@ -1,0 +1,30 @@
+<div class="container jumbotron py-4">
+    <h1>{{ "EDIT_TWITTER" | translate }}</h1>
+    <form class="mt-4" method="POST" ng-submit="twc.submit()">
+        <div class="form-group">
+            <label>{{ "ACCOUNT" | translate }}</label>
+            <input class="form-control" type="text" name="account" required="required" ng-model="twc.tweet.ACCOUNT"  />
+        </div>
+        <div class="form-group">
+            <label>{{ "HASHTAG" | translate }}</label>
+            <input class="form-control" type="text" name="hashtag" required="required" ng-model="twc.tweet.HASHTAG" />
+        </div>
+        <table class="table">
+            <tr>
+                <td>{{ "USE_HASHTAG" |translate }}:</td>
+                <td>
+                    <i class="fa fa-toggle-on active toggler" ng-if="twc.tweet.USED == 1" ng-click="twc.changeStatus(twc.tweet);"></i>
+                    <i class="fa fa-toggle-on fa-rotate-180 inactive toggler" ng-if="twc.tweet.USED == 0" ng-click="twc.changeStatus(twc.tweet);"></i>
+                </td>
+            </tr>
+            <tr>
+                <td>{{ "USE_ADS" |translate }}:</td>
+                <td>
+                    <i class="fa fa-toggle-on active toggler" ng-if="twc.tweet.ADS == 1" ng-click="twc.changeStatusAds(twc.tweet);"></i>
+                    <i class="fa fa-toggle-on fa-rotate-180 inactive toggler" ng-if="twc.tweet.ADS == 0" ng-click="twc.changeStatusAds(twc.tweet);"></i>
+                </td>
+            </tr>
+        </table>
+        <button class="btn btn-primary" type="submit">{{ "SUBMIT" | translate }}</button>
+    </form>
+</div>
