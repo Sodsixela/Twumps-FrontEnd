@@ -1,16 +1,17 @@
 let app_config = function($compileProvider, $stateProvider, $urlRouterProvider, $httpProvider, GlobalConfigFactoryProvider, 
     $translateProvider, $translatePartialLoaderProvider) {
 
-    const twitter_state = {
-        "name": "twitter",
-        "url": "/twitter",
-        "component": "twitter"
+    const index_state = {
+        "name": "index",
+        "url": "/index",
+        "component": "index"
     };
 
-    $stateProvider
-        .state(twitter_state)
 
-    $urlRouterProvider.otherwise("/twitter");
+    $stateProvider
+        .state(index_state)
+
+    $urlRouterProvider.otherwise("/index");
 
 
 
