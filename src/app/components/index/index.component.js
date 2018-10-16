@@ -4,7 +4,9 @@ let index_controller = function indexController($http, $state, GlobalConfigFacto
   let self = this;
   self.url = GlobalConfigFactory.url_back;
   self.createChart = createChart;
+  self.tagCloud = tagCloud;
   createChart();
+  tagCloud();
 
   function createChart() {
     d3Factory.d3().then(function(d3) {
@@ -33,6 +35,14 @@ let index_controller = function indexController($http, $state, GlobalConfigFacto
 
     });
   };
+
+  function tagCloud() {
+    $http.get("http://localhost:3005/dataset/tagcloud").then( function(response) {
+      console.log("Data : ");
+      console.log(response.data);
+      this.tags = response.data
+    });
+  }
 };
 
 index_controller.$inject = ['$http', '$state', 'GlobalConfigFactory', 'd3Factory', '$element'];
