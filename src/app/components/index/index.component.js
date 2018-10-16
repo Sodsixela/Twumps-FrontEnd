@@ -6,6 +6,8 @@ let index_controller = function indexController($http, $state, GlobalConfigFacto
   self.createChart = createChart;
   createChart();
   self.keyword = "";
+  self.tweets = {research: "",data: {}};
+	self.truc = false;
   self.submitKeyword = () => {
 console.log(self.keyword);
 	$http({
@@ -15,8 +17,11 @@ console.log(self.keyword);
 		headers	: {'Content-Type': 'application/json' }
 	}).then((response) => {
 	if(response.status === 200)
+		self.tweets.research = self.keyword;
 		self.keyword = "";
-		alert(response.data)
+		self.tweets.data = response.data;
+		
+self.truc = true;
 	});
   }
 

@@ -8,4 +8,16 @@
 		</div>
 		<button class="btn btn-primary" type="submit">Submit</button>
 	</form> 
+	<table class="table table-striped mt-4" ng-show=iwc.truc>
+		<thead>
+			<tr>
+				<th>Research for : {{iwc.tweets.research}}</th>
+			</tr>
+		</thead>		
+		<tbody>
+			<tr ng-repeat = "item in iwc.tweets.data">
+				<td> {{item.CONTENT}}</td>
+			</tr>
+		</tbody>
+	</table>
 </div>
