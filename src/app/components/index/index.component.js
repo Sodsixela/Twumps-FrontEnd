@@ -5,6 +5,20 @@ let index_controller = function indexController($http, $state, GlobalConfigFacto
   self.url = GlobalConfigFactory.url_back;
   self.createChart = createChart;
   createChart();
+  self.keyword = "";
+  self.submitKeyword = () => {
+console.log(self.keyword);
+	$http({
+		method 	: 'POST',
+		url	: self.url + 'dataset/search',
+		data	: { keyword : self.keyword},
+		headers	: {'Content-Type': 'application/json' }
+	}).then((response) => {
+	if(response.status === 200)
+		self.keyword = "";
+		alert(response.data)
+	});
+  }
 
   function createChart() {
     d3Factory.d3().then(function(d3) {

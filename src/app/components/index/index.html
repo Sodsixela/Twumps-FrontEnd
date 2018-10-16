@@ -1,4 +1,11 @@
 <div class="container jumbotron py-4">
     <h1>{{ "LOGIN_TEST" | translate }}</h1>
     <div class="chart-container"></div>
+	<form method="post" ng-submit="iwc.submitKeyword()">
+		<div class="form-group">		
+			<label>Search</Label><!--A METTRE DANS LE JSON-->
+			<input class="form-control" type="text" ng-model= "iwc.keyword" name="keyword" required="required" placeholder= "Enter something"/>
+		</div>
+		<button class="btn btn-primary" type="submit">Submit</button>
+	</form> 
 </div>
