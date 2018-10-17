@@ -1,9 +1,23 @@
 <div class="container jumbotron py-4">
     <h1>{{ "LOGIN_TEST" | translate }}</h1>
     <div class="chart-container"></div>
-</div>
-
-<p>Tag cloud</p>
-<div ng-if="iwc.tags.length != 0">
-	<word-cloud tags="iwc.tags"></word-cloud>
+	<form method="post" ng-submit="iwc.submitKeyword()">
+		<div class="form-group">		
+			<label>Search</Label><!--A METTRE DANS LE JSON-->
+			<input class="form-control" type="text" ng-model= "iwc.keyword" name="keyword" required="required" placeholder= "Enter something"/>
+		</div>
+		<button class="btn btn-primary" type="submit">Submit</button>
+	</form> 
+	<table class="table table-striped mt-4" ng-show=iwc.showSearchResult>
+		<thead>
+			<tr>
+				<th>Research for : {{iwc.tweets.research}}</th>
+			</tr>
+		</thead>		
+		<tbody>
+			<tr ng-repeat = "item in iwc.tweets.data">
+				<td> {{item.CONTENT}}</td>
+			</tr>
+		</tbody>
+	</table>
 </div>
