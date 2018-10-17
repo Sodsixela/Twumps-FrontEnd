@@ -1,25 +1,25 @@
 "use strict";
 
-let index_controller = function indexController($http, $state, GlobalConfigFactory, d3Factory, $element) {
+let index_controller = function indexController($http, $state, GlobalConfigFactory, d3Factory, d3CloudFactory, $element) {
   let self = this;
   self.url = GlobalConfigFactory.url_back;
   self.createChart = createChart;
   self.tagCloud = tagCloud;
+  self.tags = []
   createChart();
   tagCloud();
 
   function createChart() {
     d3Factory.d3().then(function(d3) {
 
-      let color   = d3.scale.category10(),
-        data    = [10, 20, 30],
-        width   = 100,
-        height  = 100,
-        min     = Math.min(width, height),
-        //svg     = d3.select('.chart-container').append('svg'),
-        svg     = d3.select($element[0]).append('svg'),
-        pie     = d3.layout.pie().sort(null),
-        arc     = d3.svg.arc()
+        let color = d3.scale.category10(),
+        data      = [10, 20, 30],
+        width     = 100,
+        height    = 100,
+        min       = Math.min(width, height),
+        svg       = d3.select($element[0]).append('svg'),
+        pie       = d3.layout.pie().sort(null),
+        arc       = d3.svg.arc()
           .outerRadius(min / 2 * 0.9)
           .innerRadius(min / 2 * 0.5);
 
@@ -38,14 +38,12 @@ let index_controller = function indexController($http, $state, GlobalConfigFacto
 
   function tagCloud() {
     $http.get("http://localhost:3005/dataset/tagcloud").then( function(response) {
-      console.log("Data : ");
-      console.log(response.data);
-      this.tags = response.data
-    });
+      self.tags = response.data
+    })
   }
 };
 
-index_controller.$inject = ['$http', '$state', 'GlobalConfigFactory', 'd3Factory', '$element'];
+index_controller.$inject = ['$http', '$state', 'GlobalConfigFactory', 'd3Factory', 'd3CloudFactory', '$element'];
 
 let index = {
     templateUrl: 'app/components/index/index.html',

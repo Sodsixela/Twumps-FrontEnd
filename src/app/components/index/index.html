@@ -1,6 +1,9 @@
 <div class="container jumbotron py-4">
     <h1>{{ "LOGIN_TEST" | translate }}</h1>
     <div class="chart-container"></div>
-    <!-- <word-cloud tags="iwc.tags"></word-cloud> -->
-    {{ iwc.tags }}
+</div>
+
+<p>Tag cloud</p>
+<div ng-if="iwc.tags.length != 0">
+	<word-cloud tags="iwc.tags"></word-cloud>
 </div>
