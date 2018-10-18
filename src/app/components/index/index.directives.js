@@ -1,12 +1,10 @@
 "use strict";
 
 let index_directive = function  (d3Factory) {
-  let directive = {
-    link: link,
-    restrict: 'EA'
+    return {
+      link: link,
+      restrict: 'EA'
   };
-
-  return directive;
 
   function link(scope, element, attrs) {
     d3Factory.d3().then(function(d3) {
@@ -36,15 +34,13 @@ let index_directive = function  (d3Factory) {
 };
 
 let tag_cloud = function ($window, d3Factory, d3CloudFactory) {
-  let directive = {
-    link: link,
-    restrict: 'E',
-    scope: {
-      tags: '='
-    }
-  }
-
-  return directive;
+    return {
+      link: link,
+      restrict: 'E',
+      scope: {
+          tags: '='
+      }
+  };
 
   function link(scope, element, attrs) {
     d3Factory.d3().then(function(d3) {
