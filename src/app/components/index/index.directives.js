@@ -47,11 +47,11 @@ let tag_cloud = function ($window, d3Factory, d3CloudFactory) {
       d3CloudFactory.d3().then(function(d3Cloud) {
         let tags = scope.tags;
         let fill = d3.scale.category20b();
-        var w = $window.innerWidth,
+        let w = $window.innerWidth,
             h = $window.innerHeight;
-        var max, fontSize;
+        let max, fontSize;
 
-        var layout = d3Cloud.layout.cloud()
+        let layout = d3Cloud.layout.cloud()
           .timeInterval(Infinity)
           .size([w, h])
           .fontSize(function (d) {
@@ -63,11 +63,11 @@ let tag_cloud = function ($window, d3Factory, d3CloudFactory) {
           })
           .on("end", draw);
 
-        var svg = d3.select(element[0]).append("svg")
+        let svg = d3.select(element[0]).append("svg")
           .attr("width", w)
           .attr("height", h);
 
-        var vis = svg.append("g").attr("transform", "translate(" + [w >> 1, h >> 1] + ")");
+        let vis = svg.append("g").attr("transform", "translate(" + [w >> 1, h >> 1] + ")");
         console.log(vis)
 
         update();
@@ -77,18 +77,18 @@ let tag_cloud = function ($window, d3Factory, d3CloudFactory) {
         };
 
         function draw(data, bounds) {
-          var w = $window.innerWidth,
+          let w = $window.innerWidth,
               h = $window.innerHeight;
 
           svg.attr("width", w).attr("height", h);
 
-          var scale = bounds ? Math.min(
+          let scale = bounds ? Math.min(
             w / Math.abs(bounds[1].x - w / 2),
             w / Math.abs(bounds[0].x - w / 2),
             h / Math.abs(bounds[1].y - h / 2),
             h / Math.abs(bounds[0].y - h / 2)) / 2 : 1;
 
-          var text = vis.selectAll("text")
+          let text = vis.selectAll("text")
             .data(data, function (d) {
               return d.text.toLowerCase();
             });
