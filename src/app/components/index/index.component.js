@@ -3,10 +3,16 @@
 let index_controller = function indexController($http, $state, GlobalConfigFactory, d3Factory, $element) {
   let self = this;
   self.url = GlobalConfigFactory.url_back;
-  self.createChart = createChart;
-  createChart();
+  self.emotion = []
+  //self.createChart = createChart;
+  //createChart();
 
-  function createChart() {
+  $http.get("http://localhost:3005/emotion/").then((response) => {
+      self.emotion = response.data
+      console.log(self.emotion)
+  });
+
+  /*function createChart() {
     d3Factory.d3().then(function(d3) {
 
       let color   = d3.scale.category10(),
@@ -32,7 +38,7 @@ let index_controller = function indexController($http, $state, GlobalConfigFacto
         .attr('fill', function(d, i) { return color(i); });
 
     });
-  };
+  };*/
 };
 
 index_controller.$inject = ['$http', '$state', 'GlobalConfigFactory', 'd3Factory', '$element'];

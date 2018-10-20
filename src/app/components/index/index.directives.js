@@ -35,5 +35,23 @@ let index_directive = function  (d3Factory) {
   }
 };
 
+/*let tag_emotion = function(d3Factory){
+	return {
+		link: link,
+		restrict: 'E',
+		scope: {
+			tags: '='
+			}	
+		};
+	function link(scope, element, attrs) {
+   		 d3Factory.d3().then(function(d3) {
+var histGenerator = d3.histogram()
+  .domain([0,1])    // Set the domain to cover the entire intervall [0;]
+  .thresholds(6);  // number of thresholds; 
+
+var bins = histGenerator(scope.emotion);
+console.log(bins);
+
+}}*/
 index_directive.$inject = ['d3Factory'];
 module.exports = index_directive;

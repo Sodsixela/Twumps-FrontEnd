@@ -2,3 +2,13 @@
     <h1>{{ "LOGIN_TEST" | translate }}</h1>
     <div class="chart-container"></div>
 </div>
+<table class="table table-striped mt-4" ng-if="iwc.emotion.length !== 0">
+	<thead>
+	</thead>
+	<tbody>
+		<tr ng-repeat = "item in iwc.emotion">
+			<th>{{item.POS}}</td>
+			<th>{{item.NEUTRAL}}</td>
+			<th>{{item.NEG}}</td>
+		</tr>
+</table>
