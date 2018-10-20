@@ -13,7 +13,7 @@ let index_controller = function indexController($http, $state, GlobalConfigFacto
   self.submitKeyword = () => {
     $http({
       method : 'POST',
-      url    : self.url + 'dataset/search',
+      url    : self.url + 'search/',
       data   : { keyword : self.keyword},
       headers: {'Content-Type': 'application/json' }
     }).then((response) => {
