@@ -51,7 +51,7 @@ let tag_cloud = function ($window, d3Factory, d3CloudFactory) {
       d3CloudFactory.d3().then(function(d3Cloud) {
         let tags = scope.tags;
         let fill = d3.scale.category20b();
-        var w = $window.innerWidth,
+        var w = $window.innerWidth - 30,
             h = $window.innerHeight;
         var max, fontSize;
 
@@ -81,7 +81,7 @@ let tag_cloud = function ($window, d3Factory, d3CloudFactory) {
         };
 
         function draw(data, bounds) {
-          var w = $window.innerWidth,
+          var w = $window.innerWidth - 30,
               h = $window.innerHeight;
 
           svg.attr("width", w).attr("height", h);
