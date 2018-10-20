@@ -3,13 +3,14 @@
 let index_controller = function indexController($http, $state, GlobalConfigFactory, d3Factory, d3CloudFactory, $element) {
   let self = this;
   self.url = GlobalConfigFactory.url_back;
-  self.createChart = createChart;
-  self.tagCloud = tagCloud;
-  self.tags = []
-  createChart();
-  tagCloud();
+  self.tags = [];
+  //createChart();
 
-  function createChart() {
+  $http.get("http://localhost:3005/dataset/tagcloud").then((response) => {
+      self.tags = response.data
+  });
+
+  /*function createChart() {
     d3Factory.d3().then(function(d3) {
 
         let color = d3.scale.category10(),
@@ -34,13 +35,8 @@ let index_controller = function indexController($http, $state, GlobalConfigFacto
         .attr('fill', function(d, i) { return color(i); });
 
     });
-  };
+  };*/
 
-  function tagCloud() {
-    $http.get("http://localhost:3005/dataset/tagcloud").then( function(response) {
-      self.tags = response.data
-    })
-  }
 };
 
 index_controller.$inject = ['$http', '$state', 'GlobalConfigFactory', 'd3Factory', 'd3CloudFactory', '$element'];
