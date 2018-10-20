@@ -6,7 +6,7 @@ let index_controller = function indexController($http, $state, GlobalConfigFacto
   self.tags = [];
   //createChart();
 
-  $http.get("http://localhost:3005/dataset/tagcloud").then((response) => {
+  $http.get("http://localhost:3005/tagcloud/").then((response) => {
       self.tags = response.data
   });
 
