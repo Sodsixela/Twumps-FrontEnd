@@ -1,4 +1,8 @@
 {
-    "LOGIN_TEST": "Test EN"
-
+    "LOGIN_TEST": "Test EN",
+    "SEARCH": "Search",
+    "BACKSEARCH": "Enter word(s) to search",
+    "SUBMIT": "Submit",
+    "RESEARCH": "Resarch for the last 20 tweets with",
+    "COUNT": "Number of time word(s) is found"
 }

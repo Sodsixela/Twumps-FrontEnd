@@ -9,6 +9,7 @@ let index_controller = function indexController($http, $state, GlobalConfigFacto
   self.keyword          = "";
   self.tweets           = {research: "",data: {}};
   self.showSearchResult = false;
+  self.count		= 0;
 
   self.submitKeyword = () => {
     $http({
@@ -18,10 +19,12 @@ let index_controller = function indexController($http, $state, GlobalConfigFacto
       headers: {'Content-Type': 'application/json' }
     }).then((response) => {
       if(response.status === 200) {
+console.log(response)
         self.tweets.research = self.keyword;
         self.keyword = "";
-        self.tweets.data = response.data;
+        self.tweets.data = response.data.data;
         self.showSearchResult = true;
+	self.count = response.data.count
       }
     });
   }

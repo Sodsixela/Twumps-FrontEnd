@@ -3,15 +3,15 @@
     <div class="chart-container"></div>
 	<form method="post" ng-submit="iwc.submitKeyword()">
 		<div class="form-group">		
-			<label>Search</Label><!--A METTRE DANS LE JSON-->
-			<input class="form-control" type="text" ng-model= "iwc.keyword" name="keyword" required="required" placeholder= "Enter something"/>
+			<label>{{ "SEARCH" | translate }}:</Label>
+			<input class="form-control" type="text" ng-model= "iwc.keyword" name="keyword" required="required" placeholder= '{{ "BACKSEARCH" | translate }}'/>
 		</div>
-		<button class="btn btn-primary" type="submit">Submit</button>
+		<button class="btn btn-primary" type="submit">{{ "SUBMIT" | translate }}</button>
 	</form> 
 	<table class="table table-striped mt-4" ng-show=iwc.showSearchResult>
 		<thead>
 			<tr>
-				<th>Research for : {{iwc.tweets.research}}</th>
+				<th>{{ "RESEARCH"| translate }}: {{iwc.tweets.research}}.		 {{ "COUNT" | translate }}: {{iwc.count}}</th>
 			</tr>
 		</thead>		
 		<tbody>

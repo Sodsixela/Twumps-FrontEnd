@@ -1,3 +1,8 @@
 {
-    "LOGIN_TEST": "Test FR"
+    "LOGIN_TEST": "Test FR",
+    "SEARCH": "Recherche",
+    "BACKSEARCH": "Entrez un/des mot(s) à rechercher",
+    "SUBMIT": "Rechercher",
+    "RESEARCH": "Recherche pour les 20 derniers tweets avec",
+    "COUNT": "Nombre de fois trouvés"
 }
