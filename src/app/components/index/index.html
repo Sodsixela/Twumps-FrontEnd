@@ -1,23 +1,37 @@
-<div class="container jumbotron py-4">
-    <h1>{{ "LOGIN_TEST" | translate }}</h1>
-    <div class="chart-container"></div>
-	<form method="post" ng-submit="iwc.submitKeyword()">
-		<div class="form-group">		
-			<label>{{ "SEARCH" | translate }}:</Label>
-			<input class="form-control" type="text" ng-model= "iwc.keyword" name="keyword" required="required" placeholder= '{{ "BACKSEARCH" | translate }}'/>
-		</div>
-		<button class="btn btn-primary" type="submit">{{ "SUBMIT" | translate }}</button>
-	</form> 
-	<table class="table table-striped mt-4" ng-show=iwc.showSearchResult>
-		<thead>
-			<tr>
-				<th>{{ "RESEARCH"| translate }}: {{iwc.tweets.research}}.		 {{ "COUNT" | translate }}: {{iwc.count}}</th>
-			</tr>
-		</thead>		
-		<tbody>
-			<tr ng-repeat = "item in iwc.tweets.data">
-				<td> {{item.CONTENT}}</td>
-			</tr>
-		</tbody>
-	</table>
+<div class="row">
+    <div class="col">
+	    <div class="container jumbotron py-4">
+		    <h1>{{ "LOGIN_TEST" | translate }}</h1>
+		    <div class="chart-container"></div>
+			<form method="post" ng-submit="iwc.submitKeyword()">
+				<div class="form-group">		
+					<label>{{ "SEARCH" | translate }}:</Label>
+					<input class="form-control" type="text" ng-model= "iwc.keyword" name="keyword" required="required" placeholder= '{{ "BACKSEARCH" | translate }}'/>
+				</div>
+				<button class="btn btn-primary" type="submit">{{ "SUBMIT" | translate }}</button>
+			</form> 
+	    </div>
+	</div>
+    <div class="col-3">
+		<!--div class="alert alert-success"-->
+			<table class="table table-striped mt-4" ng-show=iwc.showSearchResult>
+				<thead>
+					<tr>
+						<th>{{ "RESEARCH"| translate }}: {{iwc.tweets.research}}.		 {{ "COUNT" | translate }}: {{iwc.count}}</th>
+					</tr>
+				</thead>		
+				<tbody>
+					<tr ng-repeat = "item in iwc.tweets.data">
+						<td>
+							<blockquote class="twitter-tweet">
+								<p> 
+									{{item.CONTENT}}<!-- created_at, add retweet_count,favorite_count  supprimer @, ahref ="https://twitter.com/" 
+								</p>
+							</blockquote>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		<!--/div-->
+	</div>
 </div>
