@@ -3,5 +3,4 @@ const indexDir = require("./index.directives")
 
 angular.module('IndexModule', [])
     .component("index", index)
-    .directive('d3Bars', indexDir)
-   // .directive('emotionBar', indexDir.tag_emotion)
+   	.directive('emotion', indexDir.emotion)
