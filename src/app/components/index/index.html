@@ -23,11 +23,32 @@
 				<tbody>
 					<tr ng-repeat = "item in iwc.tweets.data">
 						<td>
-							<blockquote class="twitter-tweet">
-								<p> 
-									{{item.CONTENT}}<!-- created_at, add retweet_count,favorite_count  supprimer @, ahref ="https://twitter.com/" 
-								</p>
-							</blockquote>
+							<div class=".EmbeddedTweet-tweet">
+								<blockquote class="twitter-tweet">
+									<p> 
+										{{item.CONTENT}}<!-- created_at, add retweet_count,favorite_count  supprimer @, ahref ="https://twitter.com/" -->
+									</p>
+									<div class="Tweet-metadata dateline">
+										<a>
+										{{item.CREATED_AT}}
+										</a>
+									</div>
+									<ul class="Tweet-action .Tweet-action--newsActions" role="menu" aria-label="Tweet actions"> 
+										<li class="Tweet-action Tweet-action--newsAction">
+											<a class="Tweet-action--heart TweetAction TweetAction--heartEdge">
+												<div class="Icon Icon--heartEdge TweetAction-icon" role="img" data-scribe="element:heart"></div>
+												<span class="TweetAction-stat" data-scribe="element:heart_count">{{item.RETWEET_COUNT}}</span>
+											</a>
+										</li>
+										<li class="Tweet-action Tweet-action--newsAction">
+											<a class="Tweet-action--replyEdge TweetAction TweetAction--replyEdge">
+												<div class="Icon Icon--replyEdge TweetAction-icon" role="img" data-scribe="element:conversation_icon"></div>
+												<span class="TweetAction-stat" data-scribe="element:heart_count">{{item.FAVORITE_COUNT}}</span>
+											</a>
+										</li>
+									</ul> 
+								</blockquote>
+							</div>
 						</td>
 					</tr>
 				</tbody>
