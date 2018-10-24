@@ -47,11 +47,12 @@ let emotion = function($window, d3Factory){
 
   function link(scope, element, attrs) {
     d3Factory.d3().then(function(d3) {
+      // Setup variables
       let data = scope.data;
 
       var margin     = {top: 100, right: 100, bottom: 100, left: 100},
           width      = $window.innerWidth - margin.left - margin.right,
-          height     = $window.innerHeight - margin.top - margin.bottom;
+          height     = 400 - margin.top - margin.bottom;
 
       var y = d3.scale.ordinal()
           .rangeRoundBands([0, height], .3);
@@ -71,16 +72,18 @@ let emotion = function($window, d3Factory){
           .orient("left")
 
       var svg = d3.select(element[0]).append("svg")
-          .attr("width", width + margin.left + margin.right)
+          .attr("width", width + margin.left + margin.rigth)
           .attr("height", height + margin.top + margin.bottom)
           .attr("id", "d3-plot")
           .append("g")
           .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-        color.domain(["NEG", "NEUTRAL", "POS"]);
+      // Type of data
+      color.domain(["NEG", "NEUTRAL", "POS"]);
 
+      // Data calculations
       data.forEach(function(d) {
-        var x0 = 0;
+        var x0 = 50 - (d['NEUTRAL'] / 2) - d['NEG'];
         d.boxes = color.domain().map(function(name) {
           return {name: name, x0: x0, x1: x0 += d[name], N: 0, n: Math.floor(d[name])}; 
         });
@@ -94,8 +97,8 @@ let emotion = function($window, d3Factory){
         return d.boxes["2"].x1;
       });
 
-      x.domain([min_val, max_val]).nice();
-      y.domain(data.map(function(d) { return d['YEAR']; }));
+      x.domain([min_val, max_val]).nice(); // Abscissa
+      y.domain(data.map(function(d) { return d['YEAR']; })); // Ordinate
 
       svg.append("g")
           .attr("class", "x axis")
@@ -105,7 +108,7 @@ let emotion = function($window, d3Factory){
           .attr("class", "y axis")
           .call(yAxis)
 
-      var vakken = svg.selectAll(".question")
+      var vakken = svg.selectAll(".year")
           .data(data)
           .enter().append("g")
           .attr("class", "bar")
@@ -121,28 +124,21 @@ let emotion = function($window, d3Factory){
           .attr("width", function(d) { return x(d.x1) - x(d.x0); })
           .style("fill", function(d) { return color(d.name); });
 
+      // Percentages
       bars.append("text")
-          .attr("x", function(d) { return x(d.x0); })
+          .attr("x", function(d) { return x(d.x0 + ((d.x1 - d.x0) / 2)) - 17; })
           .attr("y", y.rangeBand()/2)
           .attr("dy", "0.5em")
-          .attr("dx", "0.5em")
           .style("font" ,"14px sans-serif bold")
           .style("text-anchor", "begin")
           .text(function(d) { return d.n !== 0 && (d.x1-d.x0)>3 ? d.n + " %" : "" });
 
-      vakken.insert("rect",":first-child")
-          .attr("height", y.rangeBand())
-          .attr("x", "1")
-          .attr("width", width)
-          .attr("fill-opacity", "0.5")
-          .style("fill", "#F5F5F5")
-          .attr("class", function(d,index) { return index%2==0 ? "even" : "uneven"; });
-
+      // 50% vertical bar
       svg.append("g")
           .attr("class", "y axis")
           .append("line")
-          .attr("x1", x(0))
-          .attr("x2", x(0))
+          .attr("x1", x(50))
+          .attr("x2", x(50))
           .attr("y2", height);
 
       var startp = svg.append("g").attr("class", "legendbox").attr("id", "mylegendbox");
@@ -154,12 +150,14 @@ let emotion = function($window, d3Factory){
           .attr("class", "legend")
           .attr("transform", function(d, i) { return "translate(" + legend_tabs[i] + ",-45)"; });
 
+      // Print square color before legends
       legend.append("rect")
           .attr("x", 0)
           .attr("width", 18)
           .attr("height", 18)
           .style("fill", color);
 
+      // Plot data type (NEG, NEUTRAL, POS)
       legend.append("text")
           .attr("x", 22)
           .attr("y", 9)
@@ -168,6 +166,7 @@ let emotion = function($window, d3Factory){
           .style("font" ,"10px sans-serif")
           .text(function(d) { return d; });
 
+      // Lines axis
       d3.selectAll(".axis path")
           .style("fill", "none")
           .style("stroke", "#000")
