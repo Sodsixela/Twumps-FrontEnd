@@ -61,9 +61,10 @@ let emotion = function($window, d3Factory){
           d3.select("#emotion").remove();
         }
 
+        var heightBar  = 50
         var margin     = {top: 100, right: 100, bottom: 100, left: 100},
             width      = $window.innerWidth - margin.left - margin.right,
-            height     = 400 - margin.top - margin.bottom;
+            height     = (data.length * heightBar) - margin.top - margin.bottom;
 
         var y = d3.scale.ordinal()
             .rangeRoundBands([0, height], .3);
@@ -90,11 +91,11 @@ let emotion = function($window, d3Factory){
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
         // Type of data
-        color.domain(["NEG", "NEUTRAL", "POS"]);
+        color.domain(["neg", "neutral", "pos"]);
 
         // Data calculations
         data.forEach(function(d) {
-          var x0 = 50 - (d['NEUTRAL'] / 2) - d['NEG'];
+          var x0 = 50 - (d['neutral'] / 2) - d['neg'];
           d.boxes = color.domain().map(function(name) {
             return {name: name, x0: x0, x1: x0 += d[name], N: 0, n: Math.floor(d[name])}; 
           });
@@ -109,7 +110,7 @@ let emotion = function($window, d3Factory){
         });
 
         x.domain([min_val, max_val]).nice(); // Abscissa
-        y.domain(data.map(function(d) { return d['YEAR']; })); // Ordinate
+        y.domain(data.map(function(d) { return d['year']; })); // Ordinate
 
         svg.append("g")
             .attr("class", "x axis")
@@ -123,7 +124,7 @@ let emotion = function($window, d3Factory){
             .data(data)
             .enter().append("g")
             .attr("class", "bar")
-            .attr("transform", function(d) { return "translate(0," + y(d['YEAR']) + ")"; });
+            .attr("transform", function(d) { return "translate(0," + y(d['year']) + ")"; });
 
         var bars = vakken.selectAll("rect")
             .data(function(d) { return d.boxes; })
@@ -168,7 +169,7 @@ let emotion = function($window, d3Factory){
             .attr("height", 18)
             .style("fill", color);
 
-        // Plot data type (NEG, NEUTRAL, POS)
+        // Plot data type (neg, neutral, pos)
         legend.append("text")
             .attr("x", 22)
             .attr("y", 9)
