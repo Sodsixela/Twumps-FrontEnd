@@ -13,6 +13,7 @@ const global_config_factory = require("./global-config.factory");
 const app_config = require("./app.config");
 const http_error_interceptor_factory = require("./http-error-interceptor.factory");
 const d3_factory = require("./d3.factory");
+const d3_cloud_factory = require("./d3-cloud.factory");
 const alert_service = require("./alert-service.factory");
 
 
@@ -29,4 +30,5 @@ angular.module("App", [
     .factory("HttpErrorInterceptorFactory", http_error_interceptor_factory)
     .factory("AlertService", alert_service)
     .factory("d3Factory", d3_factory)
+    .factory("d3CloudFactory", d3_cloud_factory)
     .config(app_config);
