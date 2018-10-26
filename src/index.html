@@ -2,19 +2,24 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>App</title>
+    <title>Twumps</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, minimal-ui">
     <meta name="theme-color" content="#1E2336">
     <base href="/#!/" />
     <meta name="author" content="Nicolas SAILLY" />
-    <link rel="stylesheet" href="/app/style.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/style.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/carousel.css" type="text/css">
+    <link rel="stylesheet" href="/css/custom.css" type="text/css">
     <link rel="icon" href="../../favicon.ico" />
 </head>
 <body ng-app="App">
-<div ng-cloak ng-include src="'/app/main.html'" class="container-fluid bg-whitesmoke mt-4" >
-
+<div ng-cloak ng-include src="'/app/main.html'" class="bg-whitesmoke" >
+    
 </div>
-<script src="/vendor.min.js"></script>
-<script defer src="/app.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="/js/custom.js"></script>
+<script src="/js/vendor.min.js"></script>
+<script defer src="/js/app.min.js"></script>
+<script defer src="/js/bootstrap.min.js"></script>
 </body>
 </html>
