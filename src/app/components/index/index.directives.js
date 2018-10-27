@@ -46,6 +46,7 @@ let tag_cloud = function ($window, d3Factory, d3CloudFactory) {
     d3Factory.d3().then(function(d3) {
       d3CloudFactory.d3().then(function(d3Cloud) {
         let tags = scope.tags;
+        // let fill = d3.scale.linear().domain([0, 1]).range(["white", "black"]);
         let fill = d3.scale.category20b();
         let w = $window.innerWidth - 30,
             h = $window.innerHeight;
@@ -68,7 +69,6 @@ let tag_cloud = function ($window, d3Factory, d3CloudFactory) {
           .attr("height", h);
 
         let vis = svg.append("g").attr("transform", "translate(" + [w >> 1, h >> 1] + ")");
-        console.log(vis)
 
         update();
 
