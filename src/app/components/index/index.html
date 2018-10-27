@@ -13,9 +13,9 @@
 				<a class="nav-link" href="#emotion">Emotion</a>
 			</li>
 		</ul>
-		<form class="form-inline mt-2 mt-md-0">
-            <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-            <button class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
+		<form class="form-inline mt-2 mt-md-0" method="post" ng-submit="iwc.submitKeyword()">
+			<input class="form-control mr-sm-2" type="text" ng-model= "iwc.keyword" name="keyword" required="required" placeholder= '{{ "SEARCH" | translate }}'>
+			<button class="btn btn-success my-2 my-sm-0" type="submit">{{ "SUBMIT" | translate }}</button>
 		</form>
 	</div>
 </nav>
@@ -36,6 +36,52 @@
 
 <div ng-if="iwc.tags.length !== 0">
 	<word-cloud tags="iwc.tags"></word-cloud>
+</div>
+
+<div class="row">
+    <div class="col-3">
+		<!--div class="alert alert-success"-->
+			<table class="table table-striped mt-4" ng-show=iwc.showSearchResult>
+				<thead>
+					<tr>
+						<th>{{ "RESEARCH"| translate }}: {{iwc.tweets.research}}.		 {{ "COUNT" | translate }}: {{iwc.count}}</th>
+					</tr>
+				</thead>		
+				<tbody>
+					<tr ng-repeat = "item in iwc.tweets.data">
+						<td>
+							<div class=".EmbeddedTweet-tweet">
+								<blockquote class="twitter-tweet">
+									<p> 
+										{{item.CONTENT}}<!-- created_at, add retweet_count,favorite_count  supprimer @, ahref ="https://twitter.com/" -->
+									</p>
+									<div class="Tweet-metadata dateline">
+										<a>
+										{{item.CREATED_AT}}
+										</a>
+									</div>
+									<ul class="Tweet-action .Tweet-action--newsActions" role="menu" aria-label="Tweet actions"> 
+										<li class="Tweet-action Tweet-action--newsAction">
+											<a class="Tweet-action--heart TweetAction TweetAction--heartEdge">
+												<div class="Icon Icon--heartEdge TweetAction-icon" role="img" data-scribe="element:heart"></div>
+												<span class="TweetAction-stat" data-scribe="element:heart_count">{{item.RETWEET_COUNT}}</span>
+											</a>
+										</li>
+										<li class="Tweet-action Tweet-action--newsAction">
+											<a class="Tweet-action--replyEdge TweetAction TweetAction--replyEdge">
+												<div class="Icon Icon--replyEdge TweetAction-icon" role="img" data-scribe="element:conversation_icon"></div>
+												<span class="TweetAction-stat" data-scribe="element:heart_count">{{item.FAVORITE_COUNT}}</span>
+											</a>
+										</li>
+									</ul> 
+								</blockquote>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		<!--/div-->
+	</div>
 </div>
 
 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent at laoreet tortor. Mauris rutrum a nibh quis mollis. Integer gravida leo id ullamcorper viverra. Praesent rhoncus augue in diam auctor venenatis. Suspendisse potenti. Aliquam sit amet venenatis nibh. Aliquam in vehicula massa, a dignissim nulla. Donec vehicula nunc non ligula ullamcorper, dictum cursus justo gravida. Maecenas quis facilisis sem. Fusce luctus consectetur eros, eget elementum urna imperdiet sed. Etiam vehicula urna sed sapien tempor, nec gravida erat imperdiet. Donec eu diam suscipit, mollis risus non, volutpat lectus. Donec lacinia lectus et viverra sodales. Aenean quis scelerisque nibh.</p>

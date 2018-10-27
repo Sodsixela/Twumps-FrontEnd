@@ -21,7 +21,7 @@ gulp.task("font", copy_task({src : [lib_path + "/font-awesome/fonts/*.*"], dest 
 //gulp.task("vendors_css", css_vendor_task({src : css_deps, dest : dest_folder, connect : connect}));
 
 gulp.task('generate-service-worker', generate_sw_task({dest : dest_folder, connect : connect}));
-gulp.task('vendors_js', js_vendors_task({dest : dest_folder + "/js", vendors : js_deps, connect : connect}));
+gulp.task('vendors_js', js_vendors_task({dest : dest_folder, vendors : js_deps, connect : connect}));
 gulp.task('js', js_task({vendors : js_deps, src : ['./src/app/app.js'], dest : dest_folder, connect : connect}));
 
 gulp.task('build', ['html',"css", "font", 'asset', "vendors_js", "js"]);
