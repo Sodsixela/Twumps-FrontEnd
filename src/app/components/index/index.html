@@ -32,7 +32,10 @@
 		</div>
 		<hr>
 		<div class="navbar-primary-list">
-			
+			<div ng-repeat = "item in iwc.tweets.data">
+				<twitter-widget twitter-widget-id=item.id_str twitter-widget-options="{'cards': 'hidden', 'align': 'right'}"></twitter-widget>
+
+			</div>
 		</div>
 	</div>
 </nav>

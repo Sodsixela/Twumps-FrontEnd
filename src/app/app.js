@@ -3,8 +3,7 @@ const angular = require("angular");
 require("@uirouter/angularjs");
 require('angular-translate');
 require('angular-translate-loader-partial');
-require('ng-file-upload');
-
+require('ngtweet');
 require("./components/shared/shared.module");
 require("./components/index/index.module");
 
@@ -21,6 +20,7 @@ console.log(http_error_interceptor_factory);
 
 angular.module("App", [
     "ui.router",
+    "ngtweet",
     "pascalprecht.translate",
     "SharedModule",
     "IndexModule"

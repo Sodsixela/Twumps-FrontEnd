@@ -19,7 +19,6 @@ let d3CloudFactory = function( $document, $q, $rootScope, $window, d3 ) {
   };
 
   function onScriptLoad () {
-    console.log('hay')
     $rootScope.$apply(function () { deferred.resolve($window.d3); })
   }
   function onReadyStateChange () {
