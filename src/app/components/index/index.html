@@ -12,7 +12,7 @@
 			</form> 
 	    </div>
 	</div>
-    <div class="col-3 pre-scrollable">
+    <!--div class="col-3 pre-scrollable">
 		<!--div class="alert alert-success"-->
 			<table class="table table-striped mt-4" ng-show=iwc.showSearchResult>
 				<thead>
@@ -54,5 +54,22 @@
 				</tbody>
 			</table>
 		<!--/div-->
+	</div-->
+	<div class="col-3">
+
+			<div ng-show=iwc.showSearchResult>
+
+				<div ng-repeat = "item in iwc.tweets.data">
+
+						<twitter-widget twitter-widget-id=item.id_str
+
+										twitter-widget-options="{'cards': 'hidden', 'align': 'right'}">
+
+						</twitter-widget>
+
+				</div>
+
+			</div>
+
 	</div>
 </div>

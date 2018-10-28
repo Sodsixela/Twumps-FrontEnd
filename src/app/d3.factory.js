@@ -19,7 +19,6 @@ let d3Factory = function( $document, $q, $rootScope, $window ) {
   };
 
   function onScriptLoad () {
-    console.log('hey')
     $rootScope.$apply(function () { deferred.resolve($window.d3); })
   }
   function onReadyStateChange () {
