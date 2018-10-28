@@ -1,6 +1,6 @@
 "use strict";
 
-let index_controller = function indexController($http, $state, GlobalConfigFactory, d3Factory, d3CloudFactory, $element) {
+let index_controller = function indexController($http, $anchorScroll, $location, $state, GlobalConfigFactory, d3Factory, d3CloudFactory, $element) {
   let self = this;
   self.url = GlobalConfigFactory.url_back;
   // Word cloud
@@ -15,27 +15,35 @@ let index_controller = function indexController($http, $state, GlobalConfigFacto
       self.tags = response.data
   });
 
+  self.scrollTo = function(id) {
+    $location.hash(id);
+    $anchorScroll();
+   }
+
   self.submitKeyword = () => {
-  	console.log("Submit")
-    $http({
-      method : 'POST',
-      url    : self.url + 'search/',
-      data   : { keyword : self.keyword},
-      headers: {'Content-Type': 'application/json' }
-    }).then((response) => {
-      if(response.status === 200) {
-		console.log(response)
-		self.tweets.research  = self.keyword;
-		self.keyword          = "";
-		self.tweets.data      = response.data.data;
-		self.showSearchResult = true;
-		self.count            = response.data.count
-      }
-    });
+    if (self.keyword.trim().length > 0) {
+      $http({
+        method : 'POST',
+        url    : self.url + 'search/',
+        data   : { keyword : self.keyword},
+        headers: {'Content-Type': 'application/json' }
+      }).then((response) => {
+        if(response.status === 200) {
+          $('.navbar-primary').removeClass('collapsed');
+
+      		self.tweets.research  = self.keyword;
+      		self.keyword          = "";
+      		self.tweets.data      = response.data.data;
+      		self.showSearchResult = true;
+      		self.count            = response.data.data.length;
+      		console.log("Tweets : ", self.tweets.data)
+        }
+      });
+    }
   }
 };
 
-index_controller.$inject = ['$http', '$state', 'GlobalConfigFactory', 'd3Factory', 'd3CloudFactory', '$element'];
+index_controller.$inject = ['$http', '$anchorScroll', '$location', '$state', 'GlobalConfigFactory', 'd3Factory', 'd3CloudFactory', '$element'];
 
 let index = {
     templateUrl: 'app/components/index/index.html',

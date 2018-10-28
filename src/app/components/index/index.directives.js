@@ -48,8 +48,8 @@ let tag_cloud = function ($window, d3Factory, d3CloudFactory) {
         let tags = scope.tags;
         // let fill = d3.scale.linear().domain([0, 1]).range(["white", "black"]);
         let fill = d3.scale.category20b();
-        let w = $window.innerWidth - 30,
-            h = $window.innerHeight;
+        let w = $('.main-content').width(),
+            h = 450;
         let max, fontSize;
 
         let layout = d3Cloud.layout.cloud()
@@ -76,9 +76,19 @@ let tag_cloud = function ($window, d3Factory, d3CloudFactory) {
           update();
         };
 
+        $('.btn-expand-collapse').click(function(e) {
+            if ($('.navbar-primary').hasClass('collapsed')) {
+              update();
+            }
+        });
+
+        $('.btn-deflate-collapse').click(function(e) {
+          update();
+        });
+
         function draw(data, bounds) {
-          let w = $window.innerWidth - 30,
-              h = $window.innerHeight;
+          let w = $('.main-content').width(),
+              h = 450;
 
           svg.attr("width", w).attr("height", h);
 
@@ -123,10 +133,15 @@ let tag_cloud = function ($window, d3Factory, d3CloudFactory) {
               return d.text;
             });
 
+          console.log(w, h);
+          console.log([w >> 1, h >> 1]);
           vis.transition().attr("transform", "translate(" + [w >> 1, h >> 1] + ")scale(" + scale + ")");
         }
 
         function update() {
+          w = $('.main-content').width();
+          h = 450;
+
           layout.font('impact').spiral('rectangular');
           fontSize = d3.scale['sqrt']().range([10, 100]);
           if (tags.length) {
