@@ -19,7 +19,6 @@ let index_controller = function indexController($http, $anchorScroll, $location,
 
   $http.get("http://localhost:3005/emotion/").then((response) => {
       self.emotion = response.data
-      console.log(self.emotion)
   });
 
   self.scrollTo = function(id) {

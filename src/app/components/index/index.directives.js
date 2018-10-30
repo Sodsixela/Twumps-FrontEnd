@@ -151,7 +151,7 @@ let tag_cloud = function ($window, d3Factory, d3CloudFactory) {
   }
 };
 
-let emotion = function($window, d3Factory){
+let emotion = function($window, d3Factory) {
   return {
     link: link,
     restrict: 'E',
@@ -172,8 +172,8 @@ let emotion = function($window, d3Factory){
       };
 
       function update() {
-        if (d3.select("#emotion")) {
-          d3.select("#emotion").remove();
+        if (d3.select("#emotion-svg")) {
+          d3.select("#emotion-svg").remove();
         }
 
         var heightBar  = 50
@@ -201,7 +201,7 @@ let emotion = function($window, d3Factory){
         var svg = d3.select(element[0]).append("svg")
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
-            .attr("id", "emotion")
+            .attr("id", "emotion-svg")
             .append("g")
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
