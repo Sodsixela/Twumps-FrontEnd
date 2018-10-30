@@ -309,7 +309,7 @@ let emotion = function($window, d3Factory) {
       }
     })
   }
-}
+};
 
 index_directive.$inject = ['d3Factory'];
 tag_cloud.$inject       = ['$window', 'd3Factory', 'd3CloudFactory'];
