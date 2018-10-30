@@ -5,4 +5,7 @@
     "SUBMIT": "Submit",
     "RESEARCH": "Resarch for the last 20 tweets with",
     "COUNT": "Number of time word(s) is found"
+    "RESULT": "Result(s)",
+    "CLOUD":"Words cloud"
+
 }

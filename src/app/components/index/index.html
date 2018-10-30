@@ -10,10 +10,10 @@
 		<div class="collapse navbar-collapse" id="navbar">
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item">
-					<a class="nav-link" ng-click="iwc.scrollTo('cloud')">Cloud <span class="sr-only">(current)</span></a>
+					<a class="nav-link" ng-click="iwc.scrollTo('cloud')">{{ "CLOUD" | translate }} <span class="sr-only">(current)</span></a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" ng-click="iwc.scrollTo('emotion')">Emotion</a>
+					<a class="nav-link" ng-click="iwc.scrollTo('emotion')">{{ "EMOTION" | translate }}</a>
 				</li>
 			</ul>
 			<form class="form-inline mt-2 mt-md-0" method="post" ng-submit="iwc.submitKeyword()">
@@ -46,8 +46,8 @@
 				<img class="first-slide" src="/img/3.jpg" alt="First slide">
 				<div class="container">
 					<div class="carousel-caption text-left">
-						<h1>MAKE AMERICA GREAT AGAIN</h1>
-						<p>Discover some interesting statistics about Donald Trump !</p>
+						<h1>"MAKE AMERICA GREAT AGAIN"</h1>
+						<p>{{ "PDISC" | translate }}</p>
 					</div>
 				</div>
 			</div>
