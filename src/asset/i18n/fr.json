@@ -1,9 +1,12 @@
 {
-    "Twumps": "Twumps",
+	//delete backsearch, login test
     "LOGIN_TEST": "Test FR",
     "SEARCH": "Recherche",
-    "BACKSEARCH": "Entrez un/des mot(s) à rechercher",
+    "BACKSEARCH": "Entrez un/des mot(s) a rechercher",
     "SUBMIT": "Rechercher",
     "RESEARCH": "Recherche pour les 20 derniers tweets avec",
-    "COUNT": "Nombre de fois trouvés"
+    "COUNT": "Nombre de fois trouves",
+    "RESULT": "Resultat(s)",
+    "CLOUD": "Nuage de mots",
+    "EMOTION": "Emotion"
 }
