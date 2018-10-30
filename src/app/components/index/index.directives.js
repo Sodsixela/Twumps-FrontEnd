@@ -77,7 +77,7 @@ let tag_cloud = function ($window, d3Factory, d3CloudFactory) {
         };
 
         $('.btn-expand-collapse').click(function(e) {
-            if ($('.navbar-primary').hasClass('collapsed')) {
+            if (!$('.navbar-primary').hasClass('collapsed')) {
               update();
             }
         });

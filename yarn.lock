@@ -4500,6 +4500,11 @@ ng-file-upload@^12.2.13:
   resolved "https://registry.yarnpkg.com/ng-file-upload/-/ng-file-upload-12.2.13.tgz#01800f3872e526f95310f8477e99e4f12d0d8d14"
   integrity sha1-AYAPOHLlJvlTEPhHfpnk8S0NjRQ=
 
+ngtweet@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/ngtweet/-/ngtweet-1.0.0.tgz#4677929a396ce6193d5c412af634fcb635185fca"
+  integrity sha512-7UXArJATuDOw9l4JqDMwMYvDjEHlW4Ksq4iZwLjLNvLl9TRwyoIJ/Y3hndrZhPpt85aJPrK8oB1cAZ/UT9hb/Q==
+
 no-case@^2.2.0:
   version "2.3.2"
   resolved "https://registry.yarnpkg.com/no-case/-/no-case-2.3.2.tgz#60b813396be39b3f1288a4c1ed5d1e7d28b464ac"
