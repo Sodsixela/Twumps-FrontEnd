@@ -5,6 +5,8 @@ let index_controller = function indexController($http, $anchorScroll, $location,
   self.url = GlobalConfigFactory.url_back;
   // Word cloud
   self.tags = [];
+  // Emotion
+  self.emotion = [];
   // Search functionality
   self.keyword          = "";
   self.tweets           = {research: "",data: {}};
@@ -13,6 +15,11 @@ let index_controller = function indexController($http, $anchorScroll, $location,
 
   $http.get("http://localhost:3005/tagcloud/").then((response) => {
       self.tags = response.data
+  });
+
+  $http.get("http://localhost:3005/emotion/").then((response) => {
+      self.emotion = response.data
+      console.log(self.emotion)
   });
 
   self.scrollTo = function(id) {
@@ -31,12 +38,12 @@ let index_controller = function indexController($http, $anchorScroll, $location,
         if(response.status === 200) {
           $('.navbar-primary').removeClass('collapsed');
 
-      		self.tweets.research  = self.keyword;
-      		self.keyword          = "";
-      		self.tweets.data      = response.data.data;
-      		self.showSearchResult = true;
-      		self.count            = response.data.data.length;
-      		console.log("Tweets : ", self.tweets.data)
+          self.tweets.research  = self.keyword;
+          self.keyword          = "";
+          self.tweets.data      = response.data.data;
+          self.showSearchResult = true;
+          self.count            = response.data.data.length;
+          console.log("Tweets : ", self.tweets.data)
         }
       });
     }

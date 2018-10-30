@@ -57,6 +57,10 @@
 	<div ng-if="iwc.tags.length !== 0" id="cloud">
 		<word-cloud tags="iwc.tags"></word-cloud>
 	</div>
+
+	<div ng-if="iwc.emotion.length !== 0" id="emotion">
+		<emotion data="iwc.emotion"></emotion>
+	</div>
 </div>
 
 <script>

@@ -1,14 +1,13 @@
 "use strict";
 
 let index_directive = function  (d3Factory) {
-    return {
-      link: link,
-      restrict: 'EA'
+  return {
+    link: link,
+    restrict: 'EA'
   };
 
   function link(scope, element, attrs) {
     d3Factory.d3().then(function(d3) {
-
       let color = d3.scale.category20c(),
         data      = [10, 20, 30],
         width     = 100,
@@ -34,12 +33,12 @@ let index_directive = function  (d3Factory) {
 };
 
 let tag_cloud = function ($window, d3Factory, d3CloudFactory) {
-    return {
-      link: link,
-      restrict: 'E',
-      scope: {
-          tags: '='
-      }
+  return {
+    link: link,
+    restrict: 'E',
+    scope: {
+        tags: '='
+    }
   };
 
   function link(scope, element, attrs) {
@@ -133,8 +132,6 @@ let tag_cloud = function ($window, d3Factory, d3CloudFactory) {
               return d.text;
             });
 
-          console.log(w, h);
-          console.log([w >> 1, h >> 1]);
           vis.transition().attr("transform", "translate(" + [w >> 1, h >> 1] + ")scale(" + scale + ")");
         }
 
@@ -154,6 +151,167 @@ let tag_cloud = function ($window, d3Factory, d3CloudFactory) {
   }
 };
 
+let emotion = function($window, d3Factory){
+  return {
+    link: link,
+    restrict: 'E',
+    scope: {
+      data: '='
+    }
+  };
+
+  function link(scope, element, attrs) {
+    d3Factory.d3().then(function(d3) {
+      // Setup variables
+      let data = scope.data;
+
+      update();
+
+      $window.onresize = function (event) {
+        update();
+      };
+
+      function update() {
+        if (d3.select("#emotion")) {
+          d3.select("#emotion").remove();
+        }
+
+        var heightBar  = 50
+        var margin     = {top: 100, right: 100, bottom: 100, left: 100},
+            width      = $window.innerWidth - margin.left - margin.right,
+            height     = (data.length * heightBar) - margin.top - margin.bottom;
+
+        var y = d3.scale.ordinal()
+            .rangeRoundBands([0, height], .3);
+
+        var x = d3.scale.linear()
+            .rangeRound([0, width]);
+
+        var color = d3.scale.ordinal()
+            .range(["#c7001e", "#cccccc", "#086fad"]);
+
+        var xAxis = d3.svg.axis()
+            .scale(x)
+            .orient("top");
+
+        var yAxis = d3.svg.axis()
+            .scale(y)
+            .orient("left")
+
+        var svg = d3.select(element[0]).append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .attr("id", "emotion")
+            .append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        // Type of data
+        color.domain(["neg", "neutral", "pos"]);
+
+        // Data calculations
+        data.forEach(function(d) {
+          var x0 = 50 - (d['neutral'] / 2) - d['neg'];
+          d.boxes = color.domain().map(function(name) {
+            return {name: name, x0: x0, x1: x0 += d[name], N: 0, n: Math.floor(d[name])}; 
+          });
+        });
+
+        var min_val = d3.min(data, function(d) {
+          return d.boxes["0"].x0;
+        });
+
+        var max_val = d3.max(data, function(d) {
+          return d.boxes["2"].x1;
+        });
+
+        x.domain([min_val, max_val]).nice(); // Abscissa
+        y.domain(data.map(function(d) { return d['year']; })); // Ordinate
+
+        svg.append("g")
+            .attr("class", "x axis")
+            .call(xAxis);
+
+        svg.append("g")
+            .attr("class", "y axis")
+            .call(yAxis)
+
+        var vakken = svg.selectAll(".year")
+            .data(data)
+            .enter().append("g")
+            .attr("class", "bar")
+            .attr("transform", function(d) { return "translate(0," + y(d['year']) + ")"; });
+
+        var bars = vakken.selectAll("rect")
+            .data(function(d) { return d.boxes; })
+            .enter().append("g").attr("class", "subbar");
+
+        bars.append("rect")
+            .attr("height", y.rangeBand())
+            .attr("x", function(d) { return x(d.x0); })
+            .attr("width", function(d) { return x(d.x1) - x(d.x0); })
+            .style("fill", function(d) { return color(d.name); });
+
+        // Percentages
+        bars.append("text")
+            .attr("x", function(d) { return x(d.x0 + ((d.x1 - d.x0) / 2)) - 17; })
+            .attr("y", y.rangeBand()/2)
+            .attr("dy", "0.5em")
+            .style("font" ,"14px sans-serif bold")
+            .style("text-anchor", "begin")
+            .text(function(d) { return d.n !== 0 && (d.x1-d.x0)>3 ? d.n + " %" : "" });
+
+        // 50% vertical bar
+        svg.append("g")
+            .attr("class", "y axis")
+            .append("line")
+            .attr("x1", x(50))
+            .attr("x2", x(50))
+            .attr("y2", height);
+
+        var startp = svg.append("g").attr("class", "legendbox").attr("id", "mylegendbox");
+        // this is not nice, we should calculate the bounding box and use that
+        var legend_tabs = [0, 120, 200, 375, 450];
+        var legend = startp.selectAll(".legend")
+            .data(color.domain().slice())
+            .enter().append("g")
+            .attr("class", "legend")
+            .attr("transform", function(d, i) { return "translate(" + legend_tabs[i] + ",-45)"; });
+
+        // Print square color before legends
+        legend.append("rect")
+            .attr("x", 0)
+            .attr("width", 18)
+            .attr("height", 18)
+            .style("fill", color);
+
+        // Plot data type (neg, neutral, pos)
+        legend.append("text")
+            .attr("x", 22)
+            .attr("y", 9)
+            .attr("dy", ".35em")
+            .style("text-anchor", "begin")
+            .style("font" ,"10px sans-serif")
+            .text(function(d) { return d; });
+
+        // Lines axis
+        d3.selectAll(".axis path")
+            .style("fill", "none")
+            .style("stroke", "#000")
+            .style("shape-rendering", "crispEdges")
+
+        d3.selectAll(".axis line")
+            .style("fill", "none")
+            .style("stroke", "#000")
+            .style("shape-rendering", "crispEdges")
+
+        var movesize = width/2 - startp.node().getBBox().width/2;
+        d3.selectAll(".legendbox").attr("transform", "translate(" + movesize  + ",0)");
+      }
+    })
+  }
+}
+
 index_directive.$inject = ['d3Factory'];
-tag_cloud.$inject = ['$window', 'd3Factory', 'd3CloudFactory'];
-module.exports = {index_directive, tag_cloud};
+tag_cloud.$inject       = ['$window', 'd3Factory', 'd3CloudFactory'];
+emotion.$inject         = ['$window', 'd3Factory'];
+module.exports          = {index_directive, tag_cloud, emotion};
