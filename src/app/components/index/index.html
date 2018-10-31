@@ -62,15 +62,3 @@
 		<emotion data="iwc.emotion"></emotion>
 	</div>
 </div>
-
-<script>
-	$('.btn-expand-collapse').click(function(e) {
-		if ($('input[type="text"][name="keyword"]').val().trim().length > 0) {
-			$('.navbar-primary').removeClass('collapsed');
-		}
-	});
-
-	$('.btn-deflate-collapse').click(function(e) {
-		$('.navbar-primary').addClass('collapsed');
-	});
-</script>
