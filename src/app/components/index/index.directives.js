@@ -162,7 +162,7 @@ let emotion = function($window, d3Factory) {
 
   function link(scope, element, attrs) {
     d3Factory.d3().then(function(d3) {
-      // Setup variables
+      // Setup letiables
       let data = scope.data;
 
       update();
@@ -176,29 +176,29 @@ let emotion = function($window, d3Factory) {
           d3.select("#emotion-svg").remove();
         }
 
-        var heightBar  = 50
-        var margin     = {top: 100, right: 100, bottom: 100, left: 100},
+        let heightBar  = 50
+        let margin     = {top: 100, right: 100, bottom: 100, left: 100},
             width      = $window.innerWidth - margin.left - margin.right,
             height     = (data.length * heightBar) - margin.top - margin.bottom;
 
-        var y = d3.scale.ordinal()
+        let y = d3.scale.ordinal()
             .rangeRoundBands([0, height], .3);
 
-        var x = d3.scale.linear()
+        let x = d3.scale.linear()
             .rangeRound([0, width]);
 
-        var color = d3.scale.ordinal()
+        let color = d3.scale.ordinal()
             .range(["#c7001e", "#cccccc", "#086fad"]);
 
-        var xAxis = d3.svg.axis()
+        let xAxis = d3.svg.axis()
             .scale(x)
             .orient("top");
 
-        var yAxis = d3.svg.axis()
+        let yAxis = d3.svg.axis()
             .scale(y)
             .orient("left")
 
-        var svg = d3.select(element[0]).append("svg")
+        let svg = d3.select(element[0]).append("svg")
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
             .attr("id", "emotion-svg")
@@ -210,17 +210,17 @@ let emotion = function($window, d3Factory) {
 
         // Data calculations
         data.forEach(function(d) {
-          var x0 = 50 - (d['neutral'] / 2) - d['neg'];
+          let x0 = 50 - (d['neutral'] / 2) - d['neg'];
           d.boxes = color.domain().map(function(name) {
-            return {name: name, x0: x0, x1: x0 += d[name], N: 0, n: Math.floor(d[name])}; 
+            return {name: name, x0: x0, x1: x0 += d[name], N: 0, n: Math.floor(d[name])};
           });
         });
 
-        var min_val = d3.min(data, function(d) {
+        let min_val = d3.min(data, function(d) {
           return d.boxes["0"].x0;
         });
 
-        var max_val = d3.max(data, function(d) {
+        let max_val = d3.max(data, function(d) {
           return d.boxes["2"].x1;
         });
 
@@ -228,20 +228,16 @@ let emotion = function($window, d3Factory) {
         y.domain(data.map(function(d) { return d['year']; })); // Ordinate
 
         svg.append("g")
-            .attr("class", "x axis")
-            .call(xAxis);
-
-        svg.append("g")
             .attr("class", "y axis")
             .call(yAxis)
 
-        var vakken = svg.selectAll(".year")
+        let vakken = svg.selectAll(".year")
             .data(data)
             .enter().append("g")
             .attr("class", "bar")
             .attr("transform", function(d) { return "translate(0," + y(d['year']) + ")"; });
 
-        var bars = vakken.selectAll("rect")
+        let bars = vakken.selectAll("rect")
             .data(function(d) { return d.boxes; })
             .enter().append("g").attr("class", "subbar");
 
@@ -260,18 +256,10 @@ let emotion = function($window, d3Factory) {
             .style("text-anchor", "begin")
             .text(function(d) { return d.n !== 0 && (d.x1-d.x0)>3 ? d.n + " %" : "" });
 
-        // 50% vertical bar
-        svg.append("g")
-            .attr("class", "y axis")
-            .append("line")
-            .attr("x1", x(50))
-            .attr("x2", x(50))
-            .attr("y2", height);
-
-        var startp = svg.append("g").attr("class", "legendbox").attr("id", "mylegendbox");
+        let startp = svg.append("g").attr("class", "legendbox").attr("id", "mylegendbox");
         // this is not nice, we should calculate the bounding box and use that
-        var legend_tabs = [0, 120, 200, 375, 450];
-        var legend = startp.selectAll(".legend")
+        let legend_tabs = [0, 120, 200, 375, 450];
+        let legend = startp.selectAll(".legend")
             .data(color.domain().slice())
             .enter().append("g")
             .attr("class", "legend")
@@ -304,7 +292,7 @@ let emotion = function($window, d3Factory) {
             .style("stroke", "#000")
             .style("shape-rendering", "crispEdges")
 
-        var movesize = width/2 - startp.node().getBBox().width/2;
+        let movesize = width/2 - startp.node().getBBox().width/2;
         d3.selectAll(".legendbox").attr("transform", "translate(" + movesize  + ",0)");
       }
     })
