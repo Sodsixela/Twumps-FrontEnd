@@ -21,13 +21,23 @@ let index_controller = function indexController($http, $anchorScroll, $location,
       self.emotion = response.data
   });
 
+  $('.btn-expand-collapse').click(function(e) {
+    if ($('input[type="text"][name="keyword"]').val().trim().length > 0) {
+      $('.navbar-primary').removeClass('collapsed');
+    }
+  });
+
+  $('.btn-deflate-collapse').click(function(e) {
+    $('.navbar-primary').addClass('collapsed');
+  });
+
   self.scrollTo = function(id) {
     $location.hash(id);
     $anchorScroll();
-   }
+  }
 
   self.wordClicked = (word) => {
-    alert("ok")
+    alert("²")
     $http({
           method : 'POST',
           url    : self.url + 'search/',
@@ -62,7 +72,6 @@ let index_controller = function indexController($http, $anchorScroll, $location,
           self.tweets.data      = response.data.data;
           self.showSearchResult = true;
           self.count            = response.data.data.length;
-          console.log("Tweets : ", self.tweets.data)
         }
       });
     }
