@@ -37,7 +37,8 @@ let tag_cloud = function ($window, d3Factory, d3CloudFactory) {
     link: link,
     restrict: 'E',
     scope: {
-        tags: '='
+        tags: '=',
+        wordClicked: '=method'
     }
   };
 
@@ -130,6 +131,9 @@ let tag_cloud = function ($window, d3Factory, d3CloudFactory) {
             })
             .text(function (d) {
               return d.text;
+            })
+            .on("click", function(d) {
+              scope.wordClicked(d['0']);
             });
 
           vis.transition().attr("transform", "translate(" + [w >> 1, h >> 1] + ")scale(" + scale + ")");
