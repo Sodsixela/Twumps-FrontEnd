@@ -53,11 +53,12 @@
 			</div>
 		</div>
 	</div>
-		
-	<div ng-if="iwc.tags.length !== 0" id="cloud">
-		<word-cloud tags="iwc.tags" ng-click="iwc.wordClicked()"></word-cloud>
-	</div>
 
+	<h2>{{ "TCLOUD" | translate }}</h2>
+	<div ng-if="iwc.tags.length !== 0" id="cloud">
+		<word-cloud tags="iwc.tags" data-method="wordClicked"></word-cloud>
+	</div>
+	<h2>{{ "TEMOTION" | translate }}</h2>
 	<div ng-if="iwc.emotion.length !== 0" id="emotion">
 		<emotion data="iwc.emotion"></emotion>
 	</div>

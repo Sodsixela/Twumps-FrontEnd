@@ -8,5 +8,7 @@
     "RESULT": "Resultat(s)",
     "CLOUD": "Nuage de mots",
     "EMOTION": "Emotion",
-    "PDISC": "Decouvrez avec passion des statistiques captivantes à propos de Donald Trump !"
+    "PDISC": "Decouvrez  des statistiques captivantes à propos des tweets de Donald Trump !",
+	"TCLOUD": "Mots les plus utilisés par Trump: ",
+	"TEMOTION":"Valeur emotionnel donnée a ses tweets: "
 }
