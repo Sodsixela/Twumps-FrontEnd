@@ -167,137 +167,169 @@ let emotion = function($window, d3Factory) {
   function link(scope, element, attrs) {
     d3Factory.d3().then(function(d3) {
       // Setup letiables
-      let data = scope.data;
+      let _data = scope.data;
+      let fulldata = []
+      let year = _data[0].year
 
-      update();
+      for (let i in _data) {
+        fulldata[_data[i].year] = [
+          { name: 'Positive', percent : Math.round(_data[i].pos) },
+          { name: 'Neutral',  percent : Math.round(_data[i].neutral) },
+          { name: 'Negative', percent : Math.round(_data[i].neg) }  
+        ]
+      }
 
-      $window.onresize = function (event) {
-        update();
+      let data = fulldata[year]
+
+      var color = d3.scale.ordinal()
+        .domain(["Positive", "Neutral", "Negative"])
+        .range(["#28a745", "#DEE5E5" , "#DD2D4A"]);
+
+      var pie = d3.layout.pie()
+        .value(function(d) { return d.percent } )
+        .sort(null)
+        .padAngle(.03);
+
+      let w = 275,
+          h = 275;
+
+      var outerRadius = w/2;
+      var innerRadius = 100;
+
+      var arc = d3.svg.arc()
+        .outerRadius(outerRadius)
+        .innerRadius(innerRadius);
+
+      var svg = d3.select("#emotion")
+        .append("svg")
+        .attr("id", "emotion-svg")
+        .attr({
+            width:w,
+            height:h
+        }).append('g')
+        .attr({
+            transform:'translate('+w/2+','+h/2+')'
+        });
+      
+      var path = svg.selectAll('path')
+        .data(pie(data))
+        .enter()
+        .append('path')
+        .attr({
+            d:arc,
+            fill:function(d,i){
+              return color(d.data.name);
+            }
+        });
+
+      path.transition()
+        .duration(1000)
+        .attrTween('d', function(d) {
+            var interpolate = d3.interpolate({startAngle: 0, endAngle: 0}, d);
+            return function(t) {
+                return arc(interpolate(t));
+            };
+        });
+
+      var restOfTheData = function(){
+        var text = svg.selectAll('text')
+          .data(pie(data))
+          .enter()
+          .append("text")
+          .transition()
+          .duration(200)
+          .attr("transform", function (d) {
+            return "translate(" + arc.centroid(d) + ")";
+          })
+          .attr("dy", ".4em")
+          .attr("text-anchor", "middle")
+          .text(function(d){
+            return d.data.percent+"%";
+          })
+          .style({
+            fill:'#000',
+            'font-size':'14px'
+          });
+
+        svg.append("text")
+          .attr("text-anchor", "middle")
+          .attr({
+            transform:'translate('+ 0 +','+ (-35) +')'
+          })  
+          .style({
+            'font-size': "20px",
+            'font-weight': 'bold'
+          }) 
+          .text(year);
+
+        var legendRectSize = 18;
+        var legendSpacing  = 7;
+        var legendHeight   = legendRectSize+legendSpacing;
+
+        var legend = svg.selectAll('.legend')
+          .data(color.domain())
+          .enter()
+          .append('g')
+          .attr({
+            class:'legend',
+            transform:function(d,i){
+              //Just a calculation for x & y position
+              return 'translate(-40,' + ((i*legendHeight)-10) + ')';
+            }
+          });
+
+        legend.append('rect')
+          .attr({
+            width:legendRectSize,
+            height:legendRectSize,
+            rx:20,
+            ry:20
+          })
+          .style({
+            fill:color,
+            stroke:color
+          });
+
+        legend.append('text')
+          .attr({
+            x:30,
+            y:15
+          })
+          .text(function(d){
+            return d;
+          }).style({
+            fill:'#929DAF',
+            'font-size':'14px'
+          });
       };
 
-      function update() {
-        if (d3.select("#emotion-svg")) {
-          d3.select("#emotion-svg").remove();
-        }
+      setTimeout(restOfTheData, 1000);
 
-        let heightBar  = 50
-        let margin     = {top: 100, right: 100, bottom: 100, left: 100},
-            width      = $window.innerWidth - margin.left - margin.right,
-            height     = (data.length * heightBar) - margin.top - margin.bottom;
+      // Select
+      var select  = d3.select("#emotion")
+        .append("select")
+        .attr('class','select')
+        .on("change", change);
 
-        let y = d3.scale.ordinal()
-            .rangeRoundBands([0, height], .3);
+      var options = select.selectAll('option')
+        .data(Object.keys(fulldata)); // Data join
 
-        let x = d3.scale.linear()
-            .rangeRound([0, width]);
+      options.enter().append("option").text(function(d) { return d; });
 
-        let color = d3.scale.ordinal()
-            .range(["#c7001e", "#cccccc", "#086fad"]);
+      function change() {
+        var selected = select.property('selectedIndex'),
+            year     = options[0][selected].__data__;
 
-        let xAxis = d3.svg.axis()
-            .scale(x)
-            .orient("top");
+        updateData(year);
+      }
 
-        let yAxis = d3.svg.axis()
-            .scale(y)
-            .orient("left")
+      function updateData(year) {
+        // console.log(year)
 
-        let svg = d3.select(element[0]).append("svg")
-            .attr("width", width + margin.left + margin.right)
-            .attr("height", height + margin.top + margin.bottom)
-            .attr("id", "emotion-svg")
-            .append("g")
-            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-        // Type of data
-        color.domain(["neg", "neutral", "pos"]);
-
-        // Data calculations
-        data.forEach(function(d) {
-          let x0 = 50 - (d['neutral'] / 2) - d['neg'];
-          d.boxes = color.domain().map(function(name) {
-            return {name: name, x0: x0, x1: x0 += d[name], N: 0, n: Math.floor(d[name])};
-          });
-        });
-
-        let min_val = d3.min(data, function(d) {
-          return d.boxes["0"].x0;
-        });
-
-        let max_val = d3.max(data, function(d) {
-          return d.boxes["2"].x1;
-        });
-
-        x.domain([min_val, max_val]).nice(); // Abscissa
-        y.domain(data.map(function(d) { return d['year']; })); // Ordinate
-
-        svg.append("g")
-            .attr("class", "y axis")
-            .call(yAxis)
-
-        let vakken = svg.selectAll(".year")
-            .data(data)
-            .enter().append("g")
-            .attr("class", "bar")
-            .attr("transform", function(d) { return "translate(0," + y(d['year']) + ")"; });
-
-        let bars = vakken.selectAll("rect")
-            .data(function(d) { return d.boxes; })
-            .enter().append("g").attr("class", "subbar");
-
-        bars.append("rect")
-            .attr("height", y.rangeBand())
-            .attr("x", function(d) { return x(d.x0); })
-            .attr("width", function(d) { return x(d.x1) - x(d.x0); })
-            .style("fill", function(d) { return color(d.name); });
-
-        // Percentages
-        bars.append("text")
-            .attr("x", function(d) { return x(d.x0 + ((d.x1 - d.x0) / 2)) - 17; })
-            .attr("y", y.rangeBand()/2)
-            .attr("dy", "0.5em")
-            .style("font" ,"14px sans-serif bold")
-            .style("text-anchor", "begin")
-            .text(function(d) { return d.n !== 0 && (d.x1-d.x0)>3 ? d.n + " %" : "" });
-
-        let startp = svg.append("g").attr("class", "legendbox").attr("id", "mylegendbox");
-        // this is not nice, we should calculate the bounding box and use that
-        let legend_tabs = [0, 120, 200, 375, 450];
-        let legend = startp.selectAll(".legend")
-            .data(color.domain().slice())
-            .enter().append("g")
-            .attr("class", "legend")
-            .attr("transform", function(d, i) { return "translate(" + legend_tabs[i] + ",-45)"; });
-
-        // Print square color before legends
-        legend.append("rect")
-            .attr("x", 0)
-            .attr("width", 18)
-            .attr("height", 18)
-            .style("fill", color);
-
-        // Plot data type (neg, neutral, pos)
-        legend.append("text")
-            .attr("x", 22)
-            .attr("y", 9)
-            .attr("dy", ".35em")
-            .style("text-anchor", "begin")
-            .style("font" ,"10px sans-serif")
-            .text(function(d) { return d; });
-
-        // Lines axis
-        d3.selectAll(".axis path")
-            .style("fill", "none")
-            .style("stroke", "#000")
-            .style("shape-rendering", "crispEdges")
-
-        d3.selectAll(".axis line")
-            .style("fill", "none")
-            .style("stroke", "#000")
-            .style("shape-rendering", "crispEdges")
-
-        let movesize = width/2 - startp.node().getBBox().width/2;
-        d3.selectAll(".legendbox").attr("transform", "translate(" + movesize  + ",0)");
+        pie.value(function(d) { console.log(d) }); // change the value function
+        // path = path.data(pie); // compute the new angles
+        // console.log("Arc : ", arc)
+        // path.attr("d", arc); // redraw the arcs
       }
     })
   }
