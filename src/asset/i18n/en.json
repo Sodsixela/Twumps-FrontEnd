@@ -8,5 +8,7 @@
     "RESULT": "Result(s)",
     "CLOUD":"Words cloud",
     "EMOTION": "Emotion",
-    "PDISC": "Discover some interesting statistics about Donald Trump !"
+    "PDISC": "Discover some interesting statistics about Donald Trump's tweets !",
+	"TCLOUD": "Most used words by Trump: ",
+	"TEMOTION":"Emotional value given to his tweets: "
 }
