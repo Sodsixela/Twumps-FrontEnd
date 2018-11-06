@@ -232,27 +232,9 @@ let emotion = function($window, d3Factory) {
         });
 
       var restOfTheData = function(){
-        var text = svg.selectAll('text')
-          .data(pie(data))
-          .enter()
-          .append("text")
-          .transition()
-          .duration(200)
-          .attr("transform", function (d) {
-            return "translate(" + arc.centroid(d) + ")";
-          })
-          .attr("dy", ".4em")
-          .attr("text-anchor", "middle")
-          .text(function(d){
-            return d.data.percent+"%";
-          })
-          .style({
-            fill:'#000',
-            'font-size':'14px'
-          });
-
         svg.append("text")
           .attr("text-anchor", "middle")
+          .attr('class','title')
           .attr({
             transform:'translate('+ 0 +','+ (-35) +')'
           })  
@@ -264,17 +246,22 @@ let emotion = function($window, d3Factory) {
 
         var legendRectSize = 18;
         var legendSpacing  = 7;
-        var legendHeight   = legendRectSize+legendSpacing;
+        var legendHeight   = legendRectSize + legendSpacing;
+
+        // Legend
+        let legends = []
+        for (let i in data) {
+          legends.push(data[i].percent + " % " + data[i].name)
+        }
 
         var legend = svg.selectAll('.legend')
-          .data(color.domain())
+          .data(legends)
           .enter()
           .append('g')
           .attr({
             class:'legend',
-            transform:function(d,i){
-              //Just a calculation for x & y position
-              return 'translate(-40,' + ((i*legendHeight)-10) + ')';
+            transform:function(d,i) {
+              return 'translate(-55,' + ((i*legendHeight)-10) + ')';
             }
           });
 
@@ -324,12 +311,77 @@ let emotion = function($window, d3Factory) {
       }
 
       function updateData(year) {
-        // console.log(year)
+        data = fulldata[year]
 
-        pie.value(function(d) { console.log(d) }); // change the value function
-        // path = path.data(pie); // compute the new angles
-        // console.log("Arc : ", arc)
-        // path.attr("d", arc); // redraw the arcs
+        // Update circles
+        path = path.data(pie(data)); // compute the new angles
+        var arcs = path.transition()
+          .duration(1000)
+          .attrTween('d', function(d) {
+            var interpolate = d3.interpolate({startAngle: 0, endAngle: 0}, d);
+            return function(t) {
+              return arc(interpolate(t));
+            };
+          });
+        path.attr("d", arc); // redraw the arcs
+
+        // Update legends
+        var legendRectSize = 18;
+        var legendSpacing  = 7;
+        var legendHeight   = legendRectSize + legendSpacing;
+        var legends = []
+        for (let i in data) {
+          legends.push(data[i].percent + " % " + data[i].name)
+        }
+
+        svg.selectAll('.legend').remove();
+
+        var legend = svg.selectAll('.legend')
+          .data(legends)
+          .enter()
+          .append('g')
+          .attr({
+            class:'legend',
+            transform:function(d,i) {
+              return 'translate(-55,' + ((i*legendHeight)-10) + ')';
+            }
+          });
+
+        legend.append('rect')
+          .attr({
+            width:legendRectSize,
+            height:legendRectSize,
+            rx:20,
+            ry:20
+          })
+          .style({
+            fill:color,
+            stroke:color
+          });
+
+        legend.append('text')
+          .attr({
+            x:30,
+            y:15
+          })
+          .text(function(d){
+            return d;
+          }).style({
+            fill:'#929DAF',
+            'font-size':'14px'
+          });
+
+        // Update title year
+        d3.select(".title").text(year)
+
+        function getCentroid(arcs, element) {
+          var c = arcs.centroid(element),
+              x = c[0], y = c[1],
+              h = Math.sqrt(x * x + y * y);
+
+          var bbox = element.getBBox();
+          return [(bbox.x + bbox.width/2) / h * 100, (bbox.y + bbox.height/2) / h * 100];
+        }
       }
     })
   }
