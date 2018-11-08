@@ -1,6 +1,6 @@
 "use strict";
 
-let index_controller = function indexController($http, $scope, $rootScope, $anchorScroll, $location, $state, GlobalConfigFactory, d3Factory, d3CloudFactory, $element) {
+let index_controller = function indexController($sce ,$http, $scope, $rootScope, $anchorScroll, $location, $state, GlobalConfigFactory, d3Factory, d3CloudFactory, $element) {
   let self = this;
   self.url = GlobalConfigFactory.url_back;
   self.collapsed = true
@@ -119,6 +119,7 @@ let index_controller = function indexController($http, $scope, $rootScope, $anch
             
         }
     });
+    self.timeline = $sce.trustAsHtml(self.timeline);
   });
 
   self.scrollTo = function(id) {
@@ -149,7 +150,7 @@ let index_controller = function indexController($http, $scope, $rootScope, $anch
 
 
 
-index_controller.$inject = ['$http', '$scope', '$rootScope', '$anchorScroll', '$location', '$state', 'GlobalConfigFactory', 'd3Factory', 'd3CloudFactory', '$element'];
+index_controller.$inject = ['$sce', '$http', '$scope', '$rootScope', '$anchorScroll', '$location', '$state', 'GlobalConfigFactory', 'd3Factory', 'd3CloudFactory', '$element'];
 
 let index = {
     templateUrl: 'app/components/index/index.html',
