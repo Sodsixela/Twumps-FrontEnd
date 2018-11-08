@@ -4,6 +4,7 @@ require("@uirouter/angularjs");
 require('angular-translate');
 require('angular-translate-loader-partial');
 require('ngtweet');
+require("moment");
 require("./components/shared/shared.module");
 require("./components/index/index.module");
 
