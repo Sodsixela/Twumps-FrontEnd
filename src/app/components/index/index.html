@@ -16,24 +16,25 @@
 					<a class="nav-link" ng-click="iwc.scrollTo('emotion')">{{ "EMOTION" | translate }}</a>
 				</li>
 			</ul>
-			<form class="form-inline mt-2 mt-md-0" method="post" ng-submit="iwc.submitKeyword()">
-				<input class="form-control mr-sm-2" type="text" ng-model= "iwc.keyword" name="keyword" required="required" placeholder= '{{ "SEARCH" | translate }}'>
-				<button class="btn btn-success my-2 my-sm-0 btn-expand-collapse" type="submit">{{ "SUBMIT" | translate }}</button>
+			<form class="form-inline mt-2 mt-md-0">
+				<input class="form-control mr-sm-2" type="text" ng-model="keyword" name="keyword" required="required" placeholder='{{ "SEARCH" | translate }}'>
+				<button class="btn btn-success my-2 my-sm-0 btn-expand-collapse" ng-click="iwc.wordClicked(keyword); keyword=''" type="button">{{ "SUBMIT" | translate }}</button>
 			</form>
 		</div>
 	</div>
 </nav>
 
-<nav class="navbar-primary collapsed">
+<nav class="navbar-primary" ng-class="iwc.collapsed ? 'collapsed' : ''">
 	<div class="navbar-primary-content">
 		<div class="navbar-primary-close">
 			{{ "RESULT" | translate }}
-			<a href="#"><i class="btn-deflate-collapse fa fa-times"></i></a>
+			<a ng-click="iwc.collapse()">
+				<i class="btn-deflate-collapse fa fa-times"></i>
+			</a>
 		</div>
 		<div class="navbar-primary-list">
-			<div ng-repeat = "item in iwc.tweets.data">
+			<div ng-repeat = "item in iwc.tweets">
 				<twitter-widget twitter-widget-id=item.id_str twitter-widget-options="{'cards': 'hidden', 'align': 'right'}"></twitter-widget>
-
 			</div>
 		</div>
 	</div>
@@ -57,7 +58,7 @@
 
 	<h2>{{ "TCLOUD" | translate }}</h2>
 	<div ng-if="iwc.tags.length !== 0" id="cloud">
-		<word-cloud tags="iwc.tags" data-method="wordClicked"></word-cloud>
+		<word-cloud tags="iwc.tags" data-method="iwc.wordClicked"></word-cloud>
 	</div>
 	<h2>{{ "TEMOTION" | translate }}</h2>
 	<div ng-if="iwc.emotion.length !== 0" id="emotion">
@@ -67,7 +68,121 @@
 
 	<div>
 		<ul class="timeline">
-	<li><div class='tldate'>2012</div></li><li><div class="tl-circ"></div><div class="timeline-panel"><div class="tl-heading"><p>261221279728824324</p><twitter-widget twitter-widget-id=261221279728824324 twitter-widget-options="{'cards': 'hidden', 'align': 'right'}"></twitter-widget></div></div></li><li><div class='tldate'>2013</div></li><li><div class='tldate'>2014</div></li><li><div class='tldate'>2015</div></li><li class='timeline-inverted'><div class="tl-circ"></div><div class="timeline-panel"><div class="tl-heading"><p>597889563831496704</p><twitter-widget twitter-widget-id=597889563831496704 twitter-widget-options="{'cards': 'hidden', 'align': 'right'}"></twitter-widget></div></div></li><li><div class="tl-circ"></div><div class="timeline-panel"><div class="tl-heading"><p>654126129763196929</p><twitter-widget twitter-widget-id=654126129763196929 twitter-widget-options="{'cards': 'hidden', 'align': 'right'}"></twitter-widget></div></div></li><li><div class='tldate'>2016</div></li><li class='timeline-inverted'><div class="tl-circ"></div><div class="timeline-panel"><div class="tl-heading"><p>696284792845942785</p><twitter-widget twitter-widget-id=696284792845942785 twitter-widget-options="{'cards': 'hidden', 'align': 'right'}"></twitter-widget></div></div></li><li><div class="tl-circ"></div><div class="timeline-panel"><div class="tl-heading"><p>714891184867508224</p><twitter-widget twitter-widget-id=714891184867508224 twitter-widget-options="{'cards': 'hidden', 'align': 'right'}"></twitter-widget></div></div></li><li class='timeline-inverted'><div class="tl-circ"></div><div class="timeline-panel"><div class="tl-heading"><h4>Candidature pour les présidentiels</h4><p><small class="text-muted"><i class="glyphicon glyphicon-time"></i>Sat Jul 16 2016 00:00:00 GMT+0200 (heure d’été d’Europe centrale)</small></p></div></div></li><li><div class="tl-circ"></div><div class="timeline-panel"><div class="tl-heading"><p>773116580733587456</p><twitter-widget twitter-widget-id=773116580733587456 twitter-widget-options="{'cards': 'hidden', 'align': 'right'}"></twitter-widget></div></div></li><li class='timeline-inverted'><div class="tl-circ"></div><div class="timeline-panel"><div class="tl-heading"><h4>Elu!</h4><p><small class="text-muted"><i class="glyphicon glyphicon-time"></i>Thu Dec 08 2016 00:00:00 GMT+0100 (heure normale d’Europe centrale)</small></p></div></div></li><li><div class='tldate'>2017</div></li><li><div class="tl-circ"></div><div class="timeline-panel"><div class="tl-heading"><h4>Serment</h4><p><small class="text-muted"><i class="glyphicon glyphicon-time"></i>Mon Feb 20 2017 00:00:00 GMT+0100 (heure normale d’Europe centrale)</small></p></div></div></li><li class='timeline-inverted'><div class="tl-circ"></div><div class="timeline-panel"><div class="tl-heading"><p>850053194923298816</p><twitter-widget twitter-widget-id=850053194923298816 twitter-widget-options="{'cards': 'hidden', 'align': 'right'}"></twitter-widget></div></div></li><li><div class="tl-circ"></div><div class="timeline-panel"><div class="tl-heading"><p>928064591665467393</p><twitter-widget twitter-widget-id=928064591665467393 twitter-widget-options="{'cards': 'hidden', 'align': 'right'}"></twitter-widget></div></div></li><li class='timeline-inverted'><div class="tl-circ"></div><div class="timeline-panel"><div class="tl-heading"><p>929655283181391874</p><twitter-widget twitter-widget-id=929655283181391874 twitter-widget-options="{'cards': 'hidden', 'align': 'right'}"></twitter-widget></div></div></li><li><div class="tl-circ"></div><div class="timeline-panel"><div class="tl-heading"><p>929670192434745344</p><twitter-widget twitter-widget-id=929670192434745344 twitter-widget-options="{'cards': 'hidden', 'align': 'right'}"></twitter-widget></div></div></li><li><div class='tldate'>2018</div></li><li class='timeline-inverted'><div class="tl-circ"></div><div class="timeline-panel"><div class="tl-heading"><h4>Polémique de Stormy Daniels</h4><p><small class="text-muted"><i class="glyphicon glyphicon-time"></i>Mon Feb 12 2018 00:00:00 GMT+0100 (heure normale d’Europe centrale)</small></p></div></div></li><li><div class='tldate'>2019</div></li>
+		<li>
+			<div class='tldate'>2012</div>
+		</li>
+		<li>
+			<div class="tl-circ"></div>
+			<div class="timeline-panel">
+				<div class="tl-heading">
+					<p>261221279728824324</p>
+					<twitter-widget twitter-widget-id=261221279728824324 twitter-widget-options="{'cards': 'hidden', 'align': 'right'}"></twitter-widget>
+				</div>
+			</div>
+		</li>
+		<li>
+			<div class='tldate'>2013</div>
+		</li>
+		<li>
+			<div class='tldate'>2014</div>
+		</li>
+		<li>
+			<div class='tldate'>2015</div>
+		</li>
+		<li class='timeline-inverted'>
+			<div class="tl-circ"></div>
+			<div class="timeline-panel">
+				<div class="tl-heading">
+					<p>597889563831496704</p>
+					<twitter-widget twitter-widget-id=597889563831496704 twitter-widget-options="{'cards': 'hidden', 'align': 'right'}"></twitter-widget>
+				</div>
+			</div>
+		</li>
+		<li>
+			<div class="tl-circ"></div>
+			<div class="timeline-panel">
+				<div class="tl-heading">
+					<p>654126129763196929</p>
+					<twitter-widget twitter-widget-id=654126129763196929 twitter-widget-options="{'cards': 'hidden', 'align': 'right'}"></twitter-widget>
+				</div>
+			</div>
+		</li>
+		<li>
+			<div class='tldate'>2016</div>
+		</li>
+		<li class='timeline-inverted'>
+			<div class="tl-circ"></div>
+			<div class="timeline-panel">
+				<div class="tl-heading">
+					<p>696284792845942785</p>
+					<twitter-widget twitter-widget-id=696284792845942785 twitter-widget-options="{'cards': 'hidden', 'align': 'right'}"></twitter-widget>
+				</div>
+			</div>
+		</li>
+		<li>
+			<div class="tl-circ"></div>
+			<div class="timeline-panel">
+				<div class="tl-heading">
+					<p>714891184867508224</p>
+					<twitter-widget twitter-widget-id=714891184867508224 twitter-widget-options="{'cards': 'hidden', 'align': 'right'}"></twitter-widget>
+				</div>
+			</div>
+		</li>
+		<li class='timeline-inverted'>
+			<div class="tl-circ"></div>
+			<div class="timeline-panel">
+				<div class="tl-heading">
+					<h4>Candidature pour les présidentiels</h4>
+					<p>
+						<small class="text-muted">
+							<i class="glyphicon glyphicon-time"></i>
+							Sat Jul 16 2016 00:00:00 GMT+0200 (heure d’été d’Europe centrale)
+						</small>
+					</p>
+				</div>
+			</div>
+		</li>
+		<li>
+			<div class="tl-circ"></div>
+			<div class="timeline-panel">
+				<div class="tl-heading">
+					<p>773116580733587456</p>
+					<twitter-widget twitter-widget-id=773116580733587456 twitter-widget-options="{'cards': 'hidden', 'align': 'right'}"></twitter-widget>
+				</div>
+			</div>
+		</li>
+		<li class='timeline-inverted'>
+			<div class="tl-circ"></div>
+			<div class="timeline-panel">
+				<div class="tl-heading">
+					<h4>Elu!</h4>
+					<p>
+						<small class="text-muted"><i class="glyphicon glyphicon-time"></i>
+							Thu Dec 08 2016 00:00:00 GMT+0100 (heure normale d’Europe centrale)
+						</small>
+					</p>
+				</div>
+			</div>
+		</li>
+		<li>
+			<div class='tldate'>2017</div>
+		</li>
+		<li>
+			<div class="tl-circ"></div>
+			<div class="timeline-panel">
+				<div class="tl-heading">
+					<h4>Serment</h4>
+					<p>
+						<small class="text-muted">
+							<i class="glyphicon glyphicon-time"></i>
+							Mon Feb 20 2017 00:00:00 GMT+0100 (heure normale d’Europe centrale)
+						</small>
+					</p>
+				</div>
+			</div>
+		</li>
+		<li class='timeline-inverted'>
+			<div class="tl-circ"></div><div class="timeline-panel"><div class="tl-heading"><p>850053194923298816</p><twitter-widget twitter-widget-id=850053194923298816 twitter-widget-options="{'cards': 'hidden', 'align': 'right'}"></twitter-widget></div></div></li><li><div class="tl-circ"></div><div class="timeline-panel"><div class="tl-heading"><p>928064591665467393</p><twitter-widget twitter-widget-id=928064591665467393 twitter-widget-options="{'cards': 'hidden', 'align': 'right'}"></twitter-widget></div></div></li><li class='timeline-inverted'><div class="tl-circ"></div><div class="timeline-panel"><div class="tl-heading"><p>929655283181391874</p><twitter-widget twitter-widget-id=929655283181391874 twitter-widget-options="{'cards': 'hidden', 'align': 'right'}"></twitter-widget></div></div></li><li><div class="tl-circ"></div><div class="timeline-panel"><div class="tl-heading"><p>929670192434745344</p><twitter-widget twitter-widget-id=929670192434745344 twitter-widget-options="{'cards': 'hidden', 'align': 'right'}"></twitter-widget></div></div></li><li><div class='tldate'>2018</div></li><li class='timeline-inverted'><div class="tl-circ"></div><div class="timeline-panel"><div class="tl-heading"><h4>Polémique de Stormy Daniels</h4><p><small class="text-muted"><i class="glyphicon glyphicon-time"></i>Mon Feb 12 2018 00:00:00 GMT+0100 (heure normale d’Europe centrale)</small></p></div></div></li><li><div class='tldate'>2019</div></li>
 
 	  </ul>
 	</div>
