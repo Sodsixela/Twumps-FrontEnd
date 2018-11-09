@@ -12,9 +12,19 @@ let index_controller = function indexController($sce ,$http, $scope, $rootScope,
   self.tweets = {};
   // Timeline
   self.retweet = [];
-  self.timeline = "";
-  self.years=[
+  self.timeline = [];
+  self.ye=[
                 2012,2013,2014,2015,2016,2017,2018,2019
+            ]
+  self.years=[
+                {"year":"2012", "created": new Date("2012")},
+                {"year":"2013", "created": new Date("2013")},
+                {"year":"2014", "created": new Date("2014")},
+                {"year":"2015", "created": new Date("2015")},
+                {"year":"2016", "created": new Date("2016")},
+                {"year":"2017", "created": new Date("2017")},
+                {"year":"2018", "created": new Date("2018")},
+                {"year":"2019", "created": new Date("2019")}
             ]
   self.staticElements=[
                         {"data":"Candidature pour les présidentiels", "created": new Date("2016","06","16")},
@@ -31,95 +41,18 @@ let index_controller = function indexController($sce ,$http, $scope, $rootScope,
   });
 
   $http.get("http://localhost:3005/timeline/").then((response) => {
-    console.log(response.data)
     self.retweet = response.data
-    
-    
     self.retweet.forEach(function(element)
     {
         element.created = new Date(element.created.substr(0,4), element.created.substr(4,2), element.created.substr(6,2), element.created.substr(9,2), element.created.substr(12,2), element.created.substr(15,2))
     });
-    self.retweet.sort(function(a,b){
+    self.timeline = self.retweet
+    self.timeline = self.timeline.concat(self.years,self.staticElements)
+    self.timeline.sort(function(a,b){
         return new Date(a.created) - new Date(b.created);
     });
-    let ret = self.retweet;
-    let stat = self.staticElements;
-    let odd = 0;
-    self.years.forEach(function(year)
-    {
-      self.timeline = self.timeline + "<li><div class='tldate'>" + year + "</div></li>"
-        for (let i=0; i < self.staticElements.length; i++)
-        {
-          let firstTurn = true
-          let staticE = self.staticElements[i]
-            if(firstTurn === true){
-              firstTurn = false
-              for (let j = i; j < self.retweet.length; j++)
-              {
-                  let tTweet = self.retweet[j]
-                  if(year === tTweet.created.getFullYear() && tTweet.created < staticE.created && (year === staticE.created.getFullYear() || staticE === self.staticElements[0]))
-                  {
-                    
-                      if(odd === 1)
-                        self.timeline= self.timeline + "<li class='timeline-inverted'>"
-                      else
-                         self.timeline= self.timeline + "<li>"
-                      self.timeline= self.timeline +  '<div class="tl-circ"></div>'+
-                        '<div class="timeline-panel">'+
-                          '<div class="tl-heading">'+'<p>'+tTweet.id_str+'</p>'+
-                            `<twitter-widget twitter-widget-id=`+tTweet.id_str+` twitter-widget-options="{'cards': 'hidden', 'align': 'right'}"></twitter-widget>`+
-                          '</div>'+
-                        '</div>'
-                      odd = (odd +1)%2
-                      self.timeline= self.timeline + "</li>"
-                      ret.splice(j,1);
-                      j--;
-                  }
-              };
-            }
-            if( year === staticE.created.getFullYear() )
-            {
-              if(odd === 1)
-                self.timeline= self.timeline + "<li class='timeline-inverted'>"
-              else
-                self.timeline= self.timeline + "<li>"
-              self.timeline= self.timeline + 
-              '<div class="tl-circ"></div>'+
-              '<div class="timeline-panel">'+
-                '<div class="tl-heading">'+
-                  '<h4>' + staticE.data + '</h4>'+
-                  '<p><small class="text-muted"><i class="glyphicon glyphicon-time"></i>' + staticE.created + '</small></p>'+
-                '</div>'+
-              '</div>'
-                   
-              odd = (odd +1)%2
-              self.timeline= self.timeline + "</li>"
-            }
-            for (let j = 0; j < self.retweet.length; j++)
-            {
-                let tTweet = self.retweet[j]
-                if(year === tTweet.created.getFullYear() && tTweet.created > staticE.created && (year === staticE.created.getFullYear() || staticE === self.staticElements[self.staticElements.length-1]))
-                {
-                    if(odd === 1)
-                      self.timeline= self.timeline + "<li class='timeline-inverted'>"
-                    else
-                       self.timeline= self.timeline + "<li>"
-                    self.timeline= self.timeline +'<div class="tl-circ"></div>'+
-                      '<div class="timeline-panel">'+
-                        '<div class="tl-heading">'+'<p>'+tTweet.id_str+'</p>'+
-                          `<twitter-widget twitter-widget-id=`+tTweet.id_str+` twitter-widget-options="{'cards': 'hidden', 'align': 'right'}"></twitter-widget>`+
-                        '</div>'+
-                      '</div>'
-                    odd = (odd +1)%2
-                    self.timeline= self.timeline + "</li>"
-                    ret.splice(j,1);
-                    j--;
-                }
-            }
-            
-        }
-    });
-    self.timeline = $sce.trustAsHtml(self.timeline);
+    console.log("data: ",self.timeline)
+    
   });
 
   self.scrollTo = function(id) {

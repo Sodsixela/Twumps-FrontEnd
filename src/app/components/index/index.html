@@ -65,9 +65,29 @@
 		<emotion data="iwc.emotion"></emotion>
 	</div>
 
-
+	<h2>{{ "TTIMELINE" | translate }}</h2>
 	<div>
 		<ul class="timeline">
-			<div ng-bind-html="iwc.timeline"></div>
+			<il ng-repeat="item in iwc.timeline">
+					<div ng-if="item.year">
+						<div class='tldate'>{{item.year}}</div>
+					</div>
+					<div ng-if="item.data">
+						<div class="tl-circ"></div>
+			            <div class="timeline-panel">
+			                <div class="tl-heading">
+			                 	<h4>  {{item.data}}  </h4>
+			                 	<p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> {{item.created}} </small></p>
+			                </div>
+			            </div>
+					</div>
+					<div ng-if="item.id_str">
+						<div class="tl-circ"></div>
+			            <div class="timeline-panel">
+							<twitter-widget twitter-widget-id=item.id_str twitter-widget-options="{'cards': 'hidden', 'align': 'right'}"></twitter-widget>
+						 </div>
+					</div>
+			</il>
 		</ul>
 	</div>
+</div>
