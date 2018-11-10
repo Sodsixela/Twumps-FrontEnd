@@ -84,6 +84,10 @@ emotion svg
 
 /** timeline box structure *
 
+#timeline
+  overflow-y: scroll
+  height: 500px
+
 .timeline
   list-style: none
   padding: 20px 0 20px
@@ -97,6 +101,7 @@ emotion svg
     background-color: #eee
     left: 50%
     margin-left: -1.5px
+    
 
 .tldate
   display: block
@@ -110,8 +115,10 @@ emotion svg
   text-align: center
   -webkit-box-shadow: 0 0 11px rgba(0, 0, 0, 0.35)
 
-.timeline li
+.timeline .ng-scope
   margin-bottom: 25px
+
+.timeline div
   position: relative
   &:before
     content: " "
@@ -128,7 +135,7 @@ emotion svg
     float: left
     background: #fff
     border: 1px solid #d4d4d4
-    padding: 20px
+    padding: 0px 7px 0px 7px
     position: relative
     -webkit-border-radius: 8px
     -moz-border-radius: 8px
@@ -192,6 +199,18 @@ emotion svg
     border-bottom-left-radius: 50%
     z-index: 99999
 
+.timeline li.timeline-inverted .timeline-panel
+  float: right
+  &:before
+    border-left-width: 0
+    border-right-width: 15px
+    left: -15px
+    right: auto
+  &:after
+    border-left-width: 0
+    border-right-width: 14px
+    left: -14px
+    right: auto
 /** timeline panels *
 
 /** panel arrows *
@@ -199,6 +218,8 @@ emotion svg
 /** timeline circle icons *
 
 /** timeline content *
+.tl-heading
+  padding: 20px
 
 .tl-heading h4
   margin: 0

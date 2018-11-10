@@ -15,6 +15,9 @@
 				<li class="nav-item">
 					<a class="nav-link" ng-click="iwc.scrollTo('emotion')">{{ "EMOTION" | translate }}</a>
 				</li>
+				<li class="nav-item">
+					<a class="nav-link" ng-click="iwc.scrollTo('timeline')">{{ "TIMELINE" | translate }}</a>
+				</li>
 			</ul>
 			<form class="form-inline mt-2 mt-md-0">
 				<input class="form-control mr-sm-2" type="text" ng-model="keyword" name="keyword" required="required" placeholder='{{ "SEARCH" | translate }}'>
@@ -66,28 +69,56 @@
 	</div>
 
 	<h2>{{ "TTIMELINE" | translate }}</h2>
-	<div>
+	<div id="timeline">
 		<ul class="timeline">
-			<il ng-repeat="item in iwc.timeline">
-					<div ng-if="item.year">
+			<div ng-repeat="item in iwc.timeline">
+				<div ng-if="item.odd">
+					<li class="timeline-inverted">
+						<div ng-if="item.year">
+							<div class='tldate'>{{item.year}}</div>
+						</div>
+						<div ng-if="item.data">
+							<div class="tl-circ"></div>
+			            	<div class="timeline-panel">
+			               		<div class="tl-heading">
+				                 	<h4>  {{item.data}}  </h4>
+				                 	<p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> {{item.created}} </small></p>
+				                </div>
+				            </div>
+						</div>
+						<div ng-if="item.id_str">
+							<div class="tl-circ"></div>
+				            <div class="timeline-panel">
+									<twitter-widget twitter-widget-id=item.id_str twitter-widget-options="{'cards': 'hidden', 'align': 'right'}"></twitter-widget>
+							</div>
+						</div>
+					</li>
+				</div>
+				<div ng-if="!item.odd">
+					<li>
+						<div ng-if="item.year">
 						<div class='tldate'>{{item.year}}</div>
-					</div>
-					<div ng-if="item.data">
-						<div class="tl-circ"></div>
-			            <div class="timeline-panel">
-			                <div class="tl-heading">
-			                 	<h4>  {{item.data}}  </h4>
-			                 	<p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> {{item.created}} </small></p>
-			                </div>
-			            </div>
-					</div>
-					<div ng-if="item.id_str">
-						<div class="tl-circ"></div>
-			            <div class="timeline-panel">
-							<twitter-widget twitter-widget-id=item.id_str twitter-widget-options="{'cards': 'hidden', 'align': 'right'}"></twitter-widget>
-						 </div>
-					</div>
-			</il>
+						</div>
+						<div ng-if="item.data">
+							<div class="tl-circ"></div>
+				            <div class="timeline-panel">
+				                <div class="tl-heading">
+				                 	<h4>  {{item.data}}  </h4>
+				                 	<p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> {{item.created}} </small></p>
+				                </div>
+				            </div>
+						</div>
+						<div ng-if="item.id_str">
+							<div class="tl-circ"></div>
+				            <div class="timeline-panel">
+									<twitter-widget twitter-widget-id=item.id_str twitter-widget-options="{'cards': 'hidden', 'align': 'right'}"></twitter-widget>
+							</div>
+						</div>
+					</il>
+				</div>
+					
+				
+			</div>
 		</ul>
 	</div>
 </div>

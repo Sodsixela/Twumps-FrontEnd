@@ -8,7 +8,9 @@
     "RESULT": "Resultat(s)",
     "CLOUD": "Nuage de mots",
     "EMOTION": "Emotion",
+    "TIMELINE": "Chronologie",
     "PDISC": "Decouvrez  des statistiques captivantes a propos des tweets de Donald Trump !",
 	"TCLOUD": "Mots les plus utilises par Trump: ",
-	"TEMOTION":"Valeurs emotionnelles donnees a ses tweets: "
+	"TEMOTION":"Valeurs emotionnelles donnees a ses tweets: ",
+    "TTIMELINE": "Les tweets les plus importants de Trump à travers le temps: "
 }

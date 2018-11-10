@@ -13,9 +13,6 @@ let index_controller = function indexController($sce ,$http, $scope, $rootScope,
   // Timeline
   self.retweet = [];
   self.timeline = [];
-  self.ye=[
-                2012,2013,2014,2015,2016,2017,2018,2019
-            ]
   self.years=[
                 {"year":"2012", "created": new Date("2012")},
                 {"year":"2013", "created": new Date("2013")},
@@ -51,8 +48,18 @@ let index_controller = function indexController($sce ,$http, $scope, $rootScope,
     self.timeline.sort(function(a,b){
         return new Date(a.created) - new Date(b.created);
     });
-    console.log("data: ",self.timeline)
-    
+    let odd = 0
+    self.timeline.forEach(function(element)
+    {
+      if(!element.year)
+      {
+        if(odd === 1)
+        {
+          element.odd = "yes"
+        }
+        odd = (odd + 1) %2  
+      }
+    });
   });
 
   self.scrollTo = function(id) {
