@@ -29,6 +29,21 @@ let index_controller = function indexController($sce ,$http, $scope, $rootScope,
                         {"data":"Serment", "created": new Date("2017","01","20")},
                         {"data":"Polémique de Stormy Daniels", "created": new Date("2018","01","12")}
                       ];
+  self.map = [
+    {city : "PARIS", country : "FRANCE", lat : "48.86", lon : "2.33" },
+    {city : "ZANZIBAR", country : "TANZANIA", lat : "-6.13", lon : "39.31" },
+    {city : "TOKYO", country : "JAPAN", lat : "35.68", lon : "139.76" },
+    {city : "AUCKLAND", country : "NEW ZEALAND", lat : "-36.85", lon : "174.78" },
+    {city : "BANGKOK", country : "THAILAND", lat : "13.75", lon : "100.48" },
+    {city : "DELHI", country : "INDIA", lat : "29.01", lon : "77.38" },
+    {city : "SINGAPORE", country : "SINGAPOR", lat : "1.36", lon : "103.75" },
+    {city : "BRASILIA", country : "BRAZIL", lat : "-15.67", lon : "-47.43" },
+    {city : "RIO DE JANEIRO", country : "BRAZIL", lat : "-22.90", lon : "-43.24" },
+    {city : "TORONTO", country : "CANADA", lat : "43.64", lon : "-79.40" },
+    {city : "EASTER ISLAND", country : "CHILE", lat : "-27.11", lon : "-109.36" },
+    {city : "SEATTLE", country : "USA", lat : "47.61", lon : "-122.33" },
+  ];
+
   $http.get("http://localhost:3005/tagcloud/").then((response) => {
       self.tags = response.data
   });
@@ -84,11 +99,7 @@ let index_controller = function indexController($sce ,$http, $scope, $rootScope,
       }
     });
   }
-
-
 };
-
-
 
 index_controller.$inject = ['$sce', '$http', '$scope', '$rootScope', '$anchorScroll', '$location', '$state', 'GlobalConfigFactory', 'd3Factory', 'd3CloudFactory', '$element'];
 
@@ -97,7 +108,5 @@ let index = {
     controllerAs: "iwc",
     controller: index_controller
 };
-
-
 
 module.exports = index;

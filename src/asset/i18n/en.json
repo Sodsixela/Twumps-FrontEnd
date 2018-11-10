@@ -9,8 +9,10 @@
     "CLOUD":"Words cloud",
     "EMOTION": "Emotion",
     "TIMELINE": "Timeline",
+    "MAP" : "Map",
     "PDISC": "Discover some interesting statistics about Donald Trump's tweets !",
 	"TCLOUD": "Most used words by Trump: ",
 	"TEMOTION":"Emotional value given to his tweets: ",
-    "TTIMELINE": "Most retweeted Trump's tweets through time: "
+    "TTIMELINE": "Most retweeted Trump's tweets through time: ",
+    "TMAP" : "Most used locations by Trump: "
 }
