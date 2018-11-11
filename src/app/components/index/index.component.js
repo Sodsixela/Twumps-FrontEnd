@@ -25,9 +25,9 @@ let index_controller = function indexController($sce ,$http, $scope, $rootScope,
                 {"year":"2019", "created": new Date("2019")}
             ]
   self.staticElements=[
-                        {"data":"Candidature pour les présidentiels", "created": new Date("2016","06","16")},
-                        {"data":"Elu!", "created": new Date("2016","11","08")},
-                        {"data":"Serment", "created": new Date("2017","01","20")},
+                        {"data":"Trump annonce sa candidature pour les présidentiels", "created": new Date("2016","06","16")},
+                        {"data":"Trump est élu président des états-unis d'amérique!", "created": new Date("2016","11","08")},
+                        {"data":"Trump prête serment sur la bible", "created": new Date("2017","01","20")},
                         {"data":"Polémique de Stormy Daniels", "created": new Date("2018","01","12")}
                       ];
   self.map = [
