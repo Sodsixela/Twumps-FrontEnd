@@ -18,6 +18,9 @@
 				<li class="nav-item">
 					<a class="nav-link" ng-click="iwc.scrollTo('timeline')">{{ "TIMELINE" | translate }}</a>
 				</li>
+				<li class="nav-item">
+					<a class="nav-link" ng-click="iwc.scrollTo('map')">{{ "MAP" | translate }}</a>
+				</li>
 			</ul>
 			<form class="form-inline mt-2 mt-md-0">
 				<input class="form-control mr-sm-2" type="text" ng-model="keyword" name="keyword" required="required" placeholder='{{ "SEARCH" | translate }}'>
@@ -58,68 +61,80 @@
 		</div>
 	</div>
 
+	<div class="container">
+		<h2>{{ "TCLOUD" | translate }}</h2>
+		<div ng-if="iwc.tags.length !== 0" id="cloud">
+			<word-cloud tags="iwc.tags" data-method="iwc.wordClicked"></word-cloud>
+		</div>
+	</div>
 
-	<h2>{{ "TCLOUD" | translate }}</h2>
-	<div ng-if="iwc.tags.length !== 0" id="cloud">
-		<word-cloud tags="iwc.tags" data-method="iwc.wordClicked"></word-cloud>
+	<div class="container">
+		<h2>{{ "TEMOTION" | translate }}</h2>
+		<div ng-if="iwc.emotion.length !== 0" id="emotion">
+			<emotion data="iwc.emotion"></emotion>
+		</div>
 	</div>
-	<br>
-	<h2>{{ "TEMOTION" | translate }}</h2>
-	<div ng-if="iwc.emotion.length !== 0" id="emotion">
-		<emotion data="iwc.emotion"></emotion>
-	</div>
-	<br>
-	<h2>{{ "TTIMELINE" | translate }}</h2>
-	<div id="timeline">
-		<ul class="timeline">
-			<div ng-repeat="item in iwc.timeline">
-				<div ng-if="item.odd">
-					<li class="timeline-inverted">
-						<div ng-if="item.year">
+
+	<div class="container">
+		<h2>{{ "TTIMELINE" | translate }}</h2>
+		<div id="timeline">
+			<ul class="timeline">
+				<div ng-repeat="item in iwc.timeline">
+					<div ng-if="item.odd">
+						<li class="timeline-inverted">
+							<div ng-if="item.year">
+								<div class='tldate'>{{item.year}}</div>
+							</div>
+							<div ng-if="item.data">
+								<div class="tl-circ"></div>
+				            	<div class="timeline-panel">
+				               		<div class="tl-heading">
+					                 	<h4>  {{item.data}}  </h4>
+					                 	<p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> {{item.created.getDay()}}/{{item.created.getMonth()}}/{{item.created.getFullYear()}} </small></p>
+					                </div>
+					            </div>
+							</div>
+							<div ng-if="item.id_str">
+								<div class="tl-circ"></div>
+					            <div class="timeline-panel">
+										<twitter-widget twitter-widget-id=item.id_str twitter-widget-options="{'cards': 'hidden', 'align': 'right'}"></twitter-widget>
+								</div>
+							</div>
+						</li>
+					</div>
+					<div ng-if="!item.odd">
+						<li>
+							<div ng-if="item.year">
 							<div class='tldate'>{{item.year}}</div>
-						</div>
-						<div ng-if="item.data">
-							<div class="tl-circ"></div>
-			            	<div class="timeline-panel">
-			               		<div class="tl-heading">
-				                 	<h4>  {{item.data}}  </h4>
-				                 	<p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> {{item.created.getDay()}}/{{item.created.getMonth()}}/{{item.created.getFullYear()}} </small></p>
-				                </div>
-				            </div>
-						</div>
-						<div ng-if="item.id_str">
-							<div class="tl-circ"></div>
-				            <div class="timeline-panel">
-									<twitter-widget twitter-widget-id=item.id_str twitter-widget-options="{'cards': 'hidden', 'align': 'right'}"></twitter-widget>
 							</div>
-						</div>
-					</li>
-				</div>
-				<div ng-if="!item.odd">
-					<li>
-						<div ng-if="item.year">
-						<div class='tldate'>{{item.year}}</div>
-						</div>
-						<div ng-if="item.data">
-							<div class="tl-circ"></div>
-				            <div class="timeline-panel">
-				                <div class="tl-heading">
-				                 	<h4>  {{item.data}}  </h4>
-				                 	<p><small class="text-muted"><i class="glyphicon glyphicon-time"></i>{{item.created.getDay()}}/{{item.created.getMonth()}}/{{item.created.getFullYear()}}</small></p>
-				                </div>
-				            </div>
-						</div>
-						<div ng-if="item.id_str">
-							<div class="tl-circ"></div>
-				            <div class="timeline-panel">
-									<twitter-widget twitter-widget-id=item.id_str twitter-widget-options="{'cards': 'hidden', 'align': 'right'}"></twitter-widget>
+							<div ng-if="item.data">
+								<div class="tl-circ"></div>
+					            <div class="timeline-panel">
+					                <div class="tl-heading">
+					                 	<h4>  {{item.data}}  </h4>
+					                 	<p><small class="text-muted"><i class="glyphicon glyphicon-time"></i>{{item.created.getDay()}}/{{item.created.getMonth()}}/{{item.created.getFullYear()}}</small></p>
+					                </div>
+					            </div>
 							</div>
-						</div>
-					</il>
-				</div>
+							<div ng-if="item.id_str">
+								<div class="tl-circ"></div>
+					            <div class="timeline-panel">
+										<twitter-widget twitter-widget-id=item.id_str twitter-widget-options="{'cards': 'hidden', 'align': 'right'}"></twitter-widget>
+								</div>
+							</div>
+						</il>
+					</div>
+						
 					
-				
-			</div>
-		</ul>
+				</div>
+			</ul>
+		</div>
+	</div>
+
+	<div class="container">
+		<h2>{{ "TMAP" | translate }}</h2>
+		<div ng-if="iwc.map.length !== 0" id="map">
+			<map data="iwc.map"></map>
+		</div>
 	</div>
 </div>

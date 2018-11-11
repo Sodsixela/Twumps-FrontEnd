@@ -11,6 +11,8 @@ let index_controller = function indexController($sce ,$http, $scope, $rootScope,
   self.emotion = [];
   // Search functionality
   self.tweets = {};
+  // Map
+  self.map = [];
   // Timeline
   self.retweet = [];
   self.timeline = [];
@@ -30,20 +32,6 @@ let index_controller = function indexController($sce ,$http, $scope, $rootScope,
                         {"data":"Trump prête serment sur la bible", "created": new Date("2017","01","20")},
                         {"data":"Polémique de Stormy Daniels", "created": new Date("2018","01","12")}
                       ];
-  self.map = [
-    {city : "PARIS", country : "FRANCE", lat : "48.86", lon : "2.33" },
-    {city : "ZANZIBAR", country : "TANZANIA", lat : "-6.13", lon : "39.31" },
-    {city : "TOKYO", country : "JAPAN", lat : "35.68", lon : "139.76" },
-    {city : "AUCKLAND", country : "NEW ZEALAND", lat : "-36.85", lon : "174.78" },
-    {city : "BANGKOK", country : "THAILAND", lat : "13.75", lon : "100.48" },
-    {city : "DELHI", country : "INDIA", lat : "29.01", lon : "77.38" },
-    {city : "SINGAPORE", country : "SINGAPOR", lat : "1.36", lon : "103.75" },
-    {city : "BRASILIA", country : "BRAZIL", lat : "-15.67", lon : "-47.43" },
-    {city : "RIO DE JANEIRO", country : "BRAZIL", lat : "-22.90", lon : "-43.24" },
-    {city : "TORONTO", country : "CANADA", lat : "43.64", lon : "-79.40" },
-    {city : "EASTER ISLAND", country : "CHILE", lat : "-27.11", lon : "-109.36" },
-    {city : "SEATTLE", country : "USA", lat : "47.61", lon : "-122.33" },
-  ];
 
   $http.get(self.api + "tagcloud/").then((response) => {
       self.tags = response.data
@@ -65,31 +53,35 @@ let index_controller = function indexController($sce ,$http, $scope, $rootScope,
 
   $http.get(self.api + "timeline/").then((response) => {
     self.retweet = response.data
-    self.retweet.forEach(function(element)
-    {
+    self.retweet.forEach(function(element) {
         element.created = new Date(element.created.substr(0,4), element.created.substr(4,2), element.created.substr(6,2), element.created.substr(9,2), element.created.substr(12,2), element.created.substr(15,2))
     });
     self.timeline = self.retweet
     self.timeline = self.timeline.concat(self.years,self.staticElements)
-    self.timeline.sort(function(a,b){
+    self.timeline.sort(function(a,b) {
         return new Date(a.created) - new Date(b.created);
     });
+
     let odd = 0
-    self.timeline.forEach(function(element)
-    {
-      if(!element.year)
-      {
-        if(odd === 1)
-        {
-          element.odd = "yes"
+    let previous = null
+    for (let i = self.timeline.length - 1; i >= 0; i--) {
+      if (self.timeline[i].year && previous && previous.year) {
+        self.timeline.splice(i, 1);
+      }
+
+      if (!self.timeline[i].year) {
+        if(odd === 1) {
+          self.timeline[i].odd = "yes"
         }
         odd = (odd + 1) %2  
       }
-    });
+
+      previous = self.timeline[i]
+    };
   });
 
   $http.get(self.api + "nouns/").then((response) => {
-    console.log(JSON.parse(response.data[0].city))
+    self.map = response.data
   });
 
   self.scrollTo = function(id) {

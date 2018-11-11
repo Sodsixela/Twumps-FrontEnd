@@ -200,6 +200,25 @@ let emotion = function($window, d3Factory) {
         .outerRadius(outerRadius)
         .innerRadius(innerRadius);
 
+      // Select
+      d3.select("#emotion")
+        .append("div")
+        .attr("class", "offset-lg-5 col-lg-2")
+        .attr("id", "select-emotion")
+        .style({
+          "margin-top": "10px",
+          "margin-bottom": "10px"
+        })
+      var select  = d3.select("#select-emotion")
+        .append("select")
+        .attr('class', 'select custom-select')
+        .on("change", change);
+
+      var options = select.selectAll('option')
+        .data(Object.keys(fulldata)); // Data join
+
+      options.enter().append("option").text(function(d) { return d; });
+
       var svg = d3.select("#emotion")
         .append("svg")
         .attr("id", "emotion-svg")
@@ -291,17 +310,6 @@ let emotion = function($window, d3Factory) {
       };
 
       setTimeout(restOfTheData, 1000);
-
-      // Select
-      var select  = d3.select("#emotion")
-        .append("select")
-        .attr('class','select')
-        .on("change", change);
-
-      var options = select.selectAll('option')
-        .data(Object.keys(fulldata)); // Data join
-
-      options.enter().append("option").text(function(d) { return d; });
 
       function change() {
         var selected = select.property('selectedIndex'),
@@ -410,7 +418,7 @@ let map = function($window, d3Factory, topojsonFactory, GlobalConfigFactory) {
             .center([0, 5])
             .scale(200)
 
-        var svg = d3.select("body").append("svg")
+        var svg = d3.select("map").append("svg")
             .attr("width", w)
             .attr("height", h);
 
@@ -433,7 +441,7 @@ let map = function($window, d3Factory, topojsonFactory, GlobalConfigFactory) {
            .enter()
            .append("a")
               .attr("xlink:href", function(d) {
-                return "https://www.google.com/search?q="+d.city;}
+                return "https://twitter.com/realDonaldTrump/status/"+d.tweetId;}
               )
            .append("circle")
            .attr("cx", function(d) {

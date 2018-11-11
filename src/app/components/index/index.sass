@@ -68,13 +68,15 @@ html
     margin-left: 0
 #carousel
   margin-top: -56px
-word-cloud,
-emotion
+word-cloud
   width: 100%
-word-cloud svg,
-emotion svg
+word-cloud svg
   width: inherit
   min-height: 500px
+#emotion-svg
+  margin: 0 auto
+  width: 275px
+  display: block
 
 .page-header h1
   font-size: 3.26em
@@ -82,10 +84,13 @@ emotion svg
   color: #efefef
   text-shadow: 1px 1px 0 #000
 
-/** timeline box structure *
+map
+  margin: 0 auto
+  width: 960px
+  display: block
 
 #timeline
-  overflow-y: scroll
+  display: inline
   height: 500px
 
 .timeline
@@ -211,13 +216,8 @@ emotion svg
     border-right-width: 14px
     left: -14px
     right: auto
-/** timeline panels *
 
-/** panel arrows *
-
-/** timeline circle icons *
-
-/** timeline content *
+// timeline content
 .tl-heading
   padding: 20px
 
@@ -231,7 +231,7 @@ emotion svg
   > p + p
     margin-top: 5px
 
-/** media queries *
+// media queries
 @media (max-width: 991px)
   .timeline li .timeline-panel
     width: 44%
