@@ -2,6 +2,7 @@
 
 let index_controller = function indexController($sce ,$http, $scope, $rootScope, $anchorScroll, $location, $state, GlobalConfigFactory, d3Factory, d3CloudFactory, $element) {
   let self = this;
+  self.api = GlobalConfigFactory.url_back + 'api/';
   self.url = GlobalConfigFactory.url_back;
   self.collapsed = true
   // Word cloud
@@ -44,11 +45,11 @@ let index_controller = function indexController($sce ,$http, $scope, $rootScope,
     {city : "SEATTLE", country : "USA", lat : "47.61", lon : "-122.33" },
   ];
 
-  $http.get("http://localhost:3005/tagcloud/").then((response) => {
+  $http.get(self.api + "tagcloud/").then((response) => {
       self.tags = response.data
   });
 
-  $http.get("http://localhost:3005/emotion/").then((response) => {
+  $http.get(self.api + "emotion/").then((response) => {
       self.emotion = response.data
       let globalEmotion = {"id":0,"year":"Global","pos" : 0,"neutral": 0, "neg":0}
       self.emotion.forEach(function(element){
@@ -62,7 +63,7 @@ let index_controller = function indexController($sce ,$http, $scope, $rootScope,
       self.emotion = self.emotion.concat(globalEmotion)
   });
 
-  $http.get("http://localhost:3005/timeline/").then((response) => {
+  $http.get(self.api + "timeline/").then((response) => {
     self.retweet = response.data
     self.retweet.forEach(function(element)
     {
@@ -87,6 +88,10 @@ let index_controller = function indexController($sce ,$http, $scope, $rootScope,
     });
   });
 
+  $http.get(self.api + "nouns/").then((response) => {
+    console.log(JSON.parse(response.data[0].city))
+  });
+
   self.scrollTo = function(id) {
     $location.hash(id);
     $anchorScroll();
@@ -99,7 +104,7 @@ let index_controller = function indexController($sce ,$http, $scope, $rootScope,
   self.wordClicked = (keyword) => {
     $http({
       method : 'POST',
-      url    : self.url + 'search/',
+      url    : self.api + 'search/',
       data   : { keyword : keyword},
       headers: {'Content-Type': 'application/json' }
     }).then((response) => {

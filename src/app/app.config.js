@@ -7,7 +7,6 @@ let app_config = function($compileProvider, $stateProvider, $urlRouterProvider, 
         "component": "index"
     };
 
-
     $stateProvider
         .state(index_state)
 
