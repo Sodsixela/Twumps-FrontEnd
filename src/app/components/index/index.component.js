@@ -35,6 +35,16 @@ let index_controller = function indexController($sce ,$http, $scope, $rootScope,
 
   $http.get("http://localhost:3005/emotion/").then((response) => {
       self.emotion = response.data
+      let globalEmotion = {"id":0,"year":"Global","pos" : 0,"neutral": 0, "neg":0}
+      self.emotion.forEach(function(element){
+        globalEmotion.pos += element.pos
+        globalEmotion.neutral += element.neutral
+        globalEmotion.neg += element.neg
+      })
+      globalEmotion.pos /= self.emotion.length
+      globalEmotion.neutral /= self.emotion.length
+      globalEmotion.neg /= self.emotion.length
+      self.emotion = self.emotion.concat(globalEmotion)
   });
 
   $http.get("http://localhost:3005/timeline/").then((response) => {
