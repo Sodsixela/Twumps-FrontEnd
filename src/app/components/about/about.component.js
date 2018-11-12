@@ -4,7 +4,6 @@ let about_controller = function aboutController ($window, $http, $state, GlobalC
   let self = this
   self.api = GlobalConfigFactory.urlBack + 'api/'
   self.url = GlobalConfigFactory.urlBack
-  self.server = GlobalConfigFactory.url_server
   self.collapsed = true
   // Search functionality
   self.tweets = {}
@@ -30,17 +29,9 @@ let about_controller = function aboutController ($window, $http, $state, GlobalC
       }
     })
   }
-
-  self.about = () => {
-    $window.location.href = self.server + '#!/about'
-  }
-
-  self.goTo = (id) => {
-    $window.location.href = self.server + '#!/index#' + id
-  }
 }
 
-about_controller.$inject = ['$window', '$http', '$state', 'GlobalConfigFactory']
+about_controller.$inject = ['$http', '$state', 'GlobalConfigFactory']
 
 let about = {
   templateUrl: 'app/components/about/about.html',
