@@ -9,48 +9,69 @@
 	</div>
 </nav>
 
-<div class="container">
-	<h1>Team</h1>
-	<img ng-src="{{abc.url}}EFREI.png" alt="Efrei">
-	<p>We are students from Efrei Paris (Engineering School of Information and Digital Technologies). We are studying Software Engineering. We are currently in the last year of the engineering cycle. And this is the result of our project of "Event-driven Asynchronous Programming".</p>
-</div>
-<div class="container">
-	<h1>Topic</h1>
-	<img ng-src="{{abc.url}}trump.jpg" alt="Donald Trump">
+<main role="main">
+	<div class="jumbotron">
+		<div class="container">
+			<h1 class="display-3">About us !</h1>
+		</div>
+	</div>
 
-	<p>Our objective is to carry out an unconventional and creative project that is out of the ordinary. We found many ideas but only one stood out from the crowd : create some <b>interesting statistics about Donald Trump</b>.</p>
+	<div class="container">
+		<h1>Team</h1>
+		<!-- <img ng-src="http://localhost:3005/EFREI.png" class="img-right" alt="Efrei"> -->
+		<img ng-src="{{abc.url}}EFREI.png" class="img-right" alt="Efrei">
 
-	<h3>How can we do that ?</h3>
-	<p>Donald Trump loves to use <b>social media</b> to communicate about his projects and beliefs. Especially <b>Twitter</b> that he uses very frequently. It is a simple way to express short ideas.</p>
+		<p>We are 3 students from Efrei Paris (Engineering School of Information and Digital Technologies) : Alexis DOS SANTOS, Nicolas SAILLY, Frédéric ROSSO.</p>
+		<p>We are studying Software Engineering. We are currently in the last year of the engineering cycle. And this is the result of our project of "Event-driven Asynchronous Programming".</p>
+		<hr>
+	</div>
+	<div class="container">
+		<h1>Topic</h1>
+		<!-- <img ng-src="http://localhost:3005/trump.jpg" class="img-left trump-img rounded-circle" alt="Donald Trump"> -->
+		<img ng-src="{{abc.url}}trump.jpg" class="img-left trump-img rounded-circle" alt="Donald Trump">
 
-	<p>Our solution is to use <b>Donald Trump's Twitter account</b> to make various statistics in order to learn more about him and his behaviour. Thanks to Twitter, we can take his tweets and use them for <b>analysis</b>. For example, it’s possible to count how many times one word is used, or find the lexical field employed by Donald Trump.</p>
+		<p>Our objective is to carry out an unconventional and creative project that is out of the ordinary. We found many ideas but only one stood out from the crowd : create some <b>interesting statistics about Donald Trump</b>.</p><br>
 
-	<h3>How can we get Donald Trump's tweets ?</h3>
-	<p>Twitter has got an API that allows to make requests in order to retrieve some data. The problem is that we can only make <b>3200 requests per month</b>. That is a huge problem for us, because Donald Trump has twitted more than <b>35 000 tweets</b>.</p>
+		<h3>How can we do that ?</h3>
+		<p>Donald Trump loves to use <b>social media</b> to communicate about his projects and beliefs. Especially <b>Twitter</b> that he uses very frequently. It is a simple way to express short ideas.</p>
 
-	<h3>What is the solution ?</h3>
-	<p>To solve this problem, we used a <b>Python script</b> to browse all Donald Trump's tweets (Twitter scrapping), i.e. it automatically reads Donald Trump's profile, in order to retrieve the data. This method allowed us to create a first database.</p>
+		<p>Our solution is to use <b>Donald Trump's Twitter account</b> to make various statistics in order to learn more about him and his behaviour. Thanks to Twitter, we can take his tweets and use them for <b>analysis</b>. For example, it’s possible to count how many times one word is used, or find the lexical field employed by Donald Trump.</p><br>
 
-	<p>Tweets information about the writter was not very accurate, so our analysis could be incorrect. That's why we contact Ben SUGERMAN who created this website : <b><a href="didtrumptweetit.com">didtrumptweetit.com</a></b>. It distinguishes tweets <b>written by Donald Trump or his team</b>, in the form of a percentage of accuracy. He shared his database with us, which we <b>merged</b> with the one we had.</p>
-</div>
+		<!-- <img ng-src="http://localhost:3005/twitter.png" class="img-right twitter-img" alt="Twitter"> -->
+		<img ng-src="{{abc.url}}twitter.png" class="img-right twitter-img" alt="Twitter">
 
-<div class="container">
-	<h1>Our graphics</h1>
-	<!--img ng-src= alt=""-->
-	<p>We have chosen to create different and multiple graphics about Trump's tweets, every of them show something different</p>
-	<h3>Words cloud</h3>
-	<p>By using a words cloud, we wanted to show you how much Trump use his words.To make it concreate, we take Trump's tweets words from our database and we delete the linking words before to analyse and count every found word. After that we select the most used words and show them in our cloud. Bigger a word is, more it is used by Trump</p><br>
-	<h3>Emotion</h3>
-	<p>Are not you curious to know if Trump's tweets a politically correct? You can get an answer with our emotion graphics. Thanks to the sentiment library we are able to give a mark to each word and then count it for a whole tweet to know if it is positive, neutral or negative. It takes Trump's tweets into our database and count to give a mark for each year, plus a global one that we are able to show in our graphic</p><br>
-	<h3>Timeline</h3>
-	<p>Trump and history. With our timeline you are able to watch through the time the most retweeted Trump's tweets along with some Trump important days. To get it, we have taken tweets from our database and selected the most retweeted tweets. Then we order them and put them into our timeline</p><br>
-	<h3>Country quoted</h3>
-	<p>Which countries Trump talks about? Obviously mostly United States of America. But not only. And with this graphic we let you know which countries all around the world Trump talks about. try to find your country! By using data from Trump's tweets inside our database and by isolating countries quoted in each tweet and after counting each occurrence, we are able to create these graphics and show it to you</p><br>
-	<h3>Search words</h3>
-	<p>The database is not only used to create all sorts of graphics. And mostly used by us. if you want, you can also use our database by searching every kind of occurrence of a word in all our Trump's tweets to get those who match with your research. You can even click on the words cloud to realise a research. To make this research possible, we take your selection and try to find it in our database. if we found it, we show to you his tweets ordered by number of retweet</p><br>
-</div>
+		<h3>How can we get Donald Trump's tweets ?</h3>
+		<p>Twitter has got an API that allows to make requests in order to retrieve some data. The problem is that we can only make <b>3200 requests per month</b>. That is a huge problem for us, because Donald Trump has twitted more than <b>35 000 tweets</b>.</p><br>
 
-<div class="container">
-	<h1>Analysis</h1>
-	<p></p>
-</div>
+		<h3>What is the solution ?</h3>
+		<p>To solve this problem, we used a <b>Python script</b> to browse all Donald Trump's tweets (Twitter scrapping), i.e. it automatically reads Donald Trump's profile, in order to retrieve the data. This method allowed us to create a first database.</p>
+
+		<p>Tweets information about the writter was not very accurate, so our analysis could be incorrect. That's why we contact Ben SUGERMAN who created this website : <b><a href="didtrumptweetit.com">didtrumptweetit.com</a></b>. It distinguishes tweets <b>written by Donald Trump or his team</b>, in the form of a percentage of accuracy. He shared his database with us, which we <b>merged</b> with the one we had.</p>
+		<hr>
+	</div>
+
+	<div class="container">
+		<h1>Graphics</h1>
+		<p>We have chosen to create different and multiple graphics about Trump's tweets, every of them show something different</p>
+		
+		<h3>Words cloud</h3>
+		<p>By using a words cloud, we wanted to show you how much Trump use his words.To make it concreate, we take Trump's tweets words from our database and we delete the linking words before to analyse and count every found word. After that we select the most used words and show them in our cloud. Bigger a word is, more it is used by Trump</p><br>
+
+		<h3>Emotion</h3>
+		<p>Are not you curious to know if Trump's tweets a politically correct? You can get an answer with our emotion graphics. Thanks to the sentiment library we are able to give a mark to each word and then count it for a whole tweet to know if it is positive, neutral or negative. It takes Trump's tweets into our database and count to give a mark for each year, plus a global one that we are able to show in our graphic</p><br>
+
+		<h3>Timeline</h3>
+		<p>Trump and history. With our timeline you are able to watch through the time the most retweeted Trump's tweets along with some Trump important days. To get it, we have taken tweets from our database and selected the most retweeted tweets. Then we order them and put them into our timeline</p><br>
+
+		<h3>Country quoted</h3>
+		<p>Which countries Trump talks about? Obviously mostly United States of America. But not only. And with this graphic we let you know which countries all around the world Trump talks about. try to find your country! By using data from Trump's tweets inside our database and by isolating countries quoted in each tweet and after counting each occurrence, we are able to create these graphics and show it to you</p><br>
+
+		<h3>Search words</h3>
+		<p>The database is not only used to create all sorts of graphics. And mostly used by us. if you want, you can also use our database by searching every kind of occurrence of a word in all our Trump's tweets to get those who match with your research. You can even click on the words cloud to realise a research. To make this research possible, we take your selection and try to find it in our database. if we found it, we show to you his tweets ordered by number of retweet</p>
+
+		<div class="img-center architecture">
+			<!-- <img ng-src="http://localhost:3005/architecture.png" alt="Architecture"> -->
+			<img ng-src="{{abc.url}}architecture.png" alt="Twitter">
+		</div>
+	</div>
+</main>
