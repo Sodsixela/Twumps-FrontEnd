@@ -75,7 +75,7 @@ gulp.task('publish', function () {
     }
   })
   let headers = {
-    'Cache-Control': 'max-age=315360000, no-transform, public'
+    'Cache-Control': 'max-age=0'
   }
   return gulp.src(dest_folder + '**/*')
     .pipe(awspublish.gzip())

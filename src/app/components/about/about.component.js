@@ -4,7 +4,6 @@ let about_controller = function aboutController ($http, $state, GlobalConfigFact
   let self = this
   self.api = GlobalConfigFactory.urlBack + 'api/'
   self.url = GlobalConfigFactory.urlBack
-  
 }
 
 about_controller.$inject = ['$http', '$state', 'GlobalConfigFactory']
