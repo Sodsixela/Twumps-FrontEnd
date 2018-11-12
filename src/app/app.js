@@ -21,13 +21,12 @@ const alert_service = require("./alert-service.factory");
 console.log(http_error_interceptor_factory);
 
 angular.module("App", [
-    "ui.router",
-    "ngtweet",
-    "pascalprecht.translate",
-    "SharedModule",
-    "IndexModule"
-    ]
-)
+        "ui.router",
+        "ngtweet",
+        "pascalprecht.translate",
+        "SharedModule",
+        "IndexModule"
+    ])
     .factory("GlobalConfigFactory", global_config_factory)
     .factory("HttpErrorInterceptorFactory", http_error_interceptor_factory)
     .factory("AlertService", alert_service)
