@@ -4,47 +4,7 @@
 			<button class="navbar-toggler" type="button" aria-expanded="false" data-toggle="collapse" data-target="#navbar" aria-controls="#navbar" aria-labcel="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
-			<a class="navbar-brand" href="#">Twumps</a>
-		</div>
-
-		<div class="collapse navbar-collapse" id="navbar">
-			<ul class="navbar-nav mr-auto">
-				<li class="nav-item">
-					<a class="nav-link" ui-sref='index#cloud'>{{ "CLOUD" | translate }}</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" ui-sref='index#emotion'>{{ "EMOTION" | translate }}</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" ui-sref='index#timeline'>{{ "TIMELINE" | translate }}</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" ui-sref='index#map	'>{{ "MAP" | translate }}</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" ui-sref='about'>{{ "ABOUT" | translate }}</a>
-				</li>
-			</ul>
-			<form class="form-inline mt-2 mt-md-0">
-				<input class="form-control mr-sm-2" type="text" ng-model="keyword" name="keyword" required="required" placeholder='{{ "SEARCH" | translate }}'>
-				<button class="btn btn-success my-2 my-sm-0 btn-expand-collapse" ng-click="abc.wordClicked(keyword); keyword=''" type="button">{{ "SUBMIT" | translate }}</button>
-			</form>
-		</div>
-	</div>
-</nav>
-
-<nav class="navbar-primary" ng-class="abc.collapsed ? 'collapsed' : ''">
-	<div class="navbar-primary-content">
-		<div class="navbar-primary-close">
-			{{ "RESULT" | translate }}
-			<a ng-click="abc.collapse()">
-				<i class="btn-deflate-collapse fa fa-times"></i>
-			</a>
-		</div>
-		<div class="navbar-primary-list">
-			<div ng-repeat = "item in abc.tweets">
-				<twitter-widget twitter-widget-id=item.id_str twitter-widget-options="{'cards': 'hidden', 'align': 'right'}"></twitter-widget>
-			</div>
+			<a class="navbar-brand" ui-sref="index">Twumps</a>
 		</div>
 	</div>
 </nav>
