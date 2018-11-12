@@ -1,5 +1,6 @@
 const gulp = require("gulp");
 const connect = require('gulp-connect');
+const awspublish = require('gulp-awspublish');
 
 const copy_task = require("./gulp-tasks/copy-task");
 const css_task = require("./gulp-tasks/css-task");
@@ -64,4 +65,21 @@ gulp.task('watch', ['html', "css", "font", 'asset', "vendors_js", "js"], functio
     gulp.watch('./src/**/*.sass', ['css']);
     gulp.watch('./src/**/*.html', ['html']);
     gulp.watch('./src/**/*.js', ['js']);
+});
+
+gulp.task('publish', function() {
+  let publisher = awspublish.create({
+    region: 'eu-west-3',
+    params: {
+      Bucket: 'twumps'
+    }
+  });
+  let headers = {
+    'Cache-Control': 'max-age=315360000, no-transform, public'
+  };
+  return gulp.src(dest_folder + '**/*')
+    .pipe(awspublish.gzip())
+    .pipe(publisher.publish(headers))
+    .pipe(publisher.cache())
+    .pipe(awspublish.reporter());
 });
