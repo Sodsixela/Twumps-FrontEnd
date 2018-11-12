@@ -1,9 +1,10 @@
 "use strict";
 
-let index_controller = function indexController($sce, $http, $scope, $rootScope, $anchorScroll, $location, $state, GlobalConfigFactory, d3Factory, d3CloudFactory, $element) {
+let index_controller = function indexController($window, $sce, $http, $scope, $rootScope, $anchorScroll, $location, $state, GlobalConfigFactory, d3Factory, d3CloudFactory, $element) {
   let self = this;
   self.api = GlobalConfigFactory.url_back + 'api/';
   self.url = GlobalConfigFactory.url_back;
+  self.server = GlobalConfigFactory.url_server;
   self.collapsed = true
   // Word cloud
   self.tags = [];
@@ -138,9 +139,13 @@ let index_controller = function indexController($sce, $http, $scope, $rootScope,
       }
     });
   }
+
+  self.about = () => {
+    $window.location.href = self.server + "#!/about";
+  }
 };
 
-index_controller.$inject = ['$sce', '$http', '$scope', '$rootScope', '$anchorScroll', '$location', '$state', 'GlobalConfigFactory', 'd3Factory', 'd3CloudFactory', '$element'];
+index_controller.$inject = ['$window', '$sce', '$http', '$scope', '$rootScope', '$anchorScroll', '$location', '$state', 'GlobalConfigFactory', 'd3Factory', 'd3CloudFactory', '$element'];
 
 let index = {
   templateUrl: 'app/components/index/index.html',
