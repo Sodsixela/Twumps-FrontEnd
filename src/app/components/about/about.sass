@@ -2,22 +2,6 @@ body
   padding-top: 3rem
   padding-bottom: 3rem
   color: #5a5a5a
-.carousel
-  margin-bottom: 4rem
-.carousel-caption
-  bottom: 3rem
-  z-index: 10
-  text-shadow: 0 0 5px #000
-.carousel-item
-  height: 32rem
-  & > img
-    position: absolute
-    width: 100%
-    height: auto
-    top: 0
-    left: 0
-    right: 0
-    margin: 0 auto
 html
   min-height: 100%
   position: relative
@@ -28,41 +12,3 @@ html
   position: fixed
   width: 100%
   top: 0
-.navbar-primary
-  background-color: #f8f9fa
-  bottom: 0
-  left: 0
-  position: absolute
-  top: 57px
-  width: 300px
-  z-index: 8
-  overflow-y: scroll
-  -webkit-transition: all 0.1s ease-in-out
-  -moz-transition: all 0.1s ease-in-out
-  transition: all 0.1s ease-in-out
-  &.collapsed
-    width: 0
-    .nav-label
-      display: none
-.navbar-primary-content
-  padding: 10px
-  & > hr
-    border-top: 1px solid rgba(0, 0, 0, 0.5)
-.navbar-primary-close
-  color: rgba(0, 0, 0, 0.5)
-  font-size: 20px
-  p
-    float: left
-  & > a
-    & > i
-      float: right
-      margin-top: 7px
-.btn-deflate-collapse
-  color: rgba(0, 0, 0, 0.5)
-  &:hover
-    color: rgba(0, 0, 0, 0.75)
-.main-content
-  margin-left: 300px
-.collapsed
-  & + .main-content
-    margin-left: 0
