@@ -1,6 +1,6 @@
 'use strict'
 
-let about_controller = function aboutController ($window, $http, $state, GlobalConfigFactory) {
+let about_controller = function aboutController ($http, $state, GlobalConfigFactory) {
   let self = this
   self.api = GlobalConfigFactory.urlBack + 'api/'
   self.url = GlobalConfigFactory.urlBack
