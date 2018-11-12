@@ -1,16 +1,15 @@
-"use strict";
+'use strict'
 
-let about_controller = function aboutController($window, $http, $state, GlobalConfigFactory) {
-  let self = this;
-  self.api = GlobalConfigFactory.url_back + 'api/';
-  self.url = GlobalConfigFactory.url_back;
-  self.server = GlobalConfigFactory.url_server;
+let about_controller = function aboutController ($http, $state, GlobalConfigFactory) {
+  let self = this
+  self.api = GlobalConfigFactory.urlBack + 'api/'
+  self.url = GlobalConfigFactory.urlBack
   self.collapsed = true
   // Search functionality
-  self.tweets = {};
+  self.tweets = {}
 
   self.collapse = () => {
-    self.collapsed = true;
+    self.collapsed = true
   }
 
   self.wordClicked = (keyword) => {
@@ -25,27 +24,19 @@ let about_controller = function aboutController($window, $http, $state, GlobalCo
       }
     }).then((response) => {
       if (response.status === 200) {
-        self.collapsed = false;
-        self.tweets = response.data.data;
+        self.collapsed = false
+        self.tweets = response.data.data
       }
-    });
+    })
   }
+}
 
-  self.about = () => {
-    $window.location.href = self.server + "#!/about";
-  }
-
-  self.goTo = (id) => {
-    $window.location.href = self.server + "#!/index#" + id;
-  }
-};
-
-about_controller.$inject = ['$window', '$http', '$state', 'GlobalConfigFactory'];
+about_controller.$inject = ['$http', '$state', 'GlobalConfigFactory']
 
 let about = {
   templateUrl: 'app/components/about/about.html',
-  controllerAs: "abc",
+  controllerAs: 'abc',
   controller: about_controller
-};
+}
 
-module.exports = about;
+module.exports = about

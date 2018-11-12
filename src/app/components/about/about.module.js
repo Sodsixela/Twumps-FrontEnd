@@ -1,4 +1,4 @@
-const about = require("./about.component");
+const about = require('./about.component')
 
 angular.module('AboutModule', [])
-  .component("about", about)
+  .component('about', about)
