@@ -20,8 +20,8 @@ yarn install
 Edit the configuration file `global.config.factory.js`
 
 ```
-const url_server = "http://localhost:5000/";
-const url_back = "http://localhost:3005/";
+const url_server = "https://localhost:5000/";
+const urlBack = "https://localhost:3005/";
 ```
 
 Start the server
