@@ -223,6 +223,7 @@ let emotion = function($window, d3Factory) {
           "margin-top": "10px",
           "margin-bottom": "10px"
         })
+
       let select = d3.select("#select-emotion")
         .append("select")
         .attr('class', 'select custom-select')
@@ -232,6 +233,10 @@ let emotion = function($window, d3Factory) {
         .data(Object.keys(fulldata)); // Data join
 
       options.enter().append("option").text(function(d) {
+        // Selected item by default
+        if (d === year) {
+          d3.select(this).attr('selected', 'selected')
+        }
         return d;
       });
 

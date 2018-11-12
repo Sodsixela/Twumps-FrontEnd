@@ -76,7 +76,7 @@ let index_controller = function indexController($sce, $http, $scope, $rootScope,
     globalEmotion.pos /= self.emotion.length
     globalEmotion.neutral /= self.emotion.length
     globalEmotion.neg /= self.emotion.length
-    self.emotion = self.emotion.concat(globalEmotion)
+    self.emotion.splice(0, 0, globalEmotion)
   });
 
   $http.get(self.api + "timeline/").then((response) => {
