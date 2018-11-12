@@ -7,7 +7,7 @@ require('ngtweet');
 require("moment");
 require("./components/shared/shared.module");
 require("./components/index/index.module");
-
+require("./components/about/about.module");
 
 const global_config_factory = require("./global-config.factory");
 const app_config = require("./app.config");
@@ -25,7 +25,8 @@ angular.module("App", [
         "ngtweet",
         "pascalprecht.translate",
         "SharedModule",
-        "IndexModule"
+        "IndexModule",
+        "AboutModule"
     ])
     .factory("GlobalConfigFactory", global_config_factory)
     .factory("HttpErrorInterceptorFactory", http_error_interceptor_factory)

@@ -7,10 +7,17 @@ let app_config = function($compileProvider, $stateProvider, $urlRouterProvider, 
         "component": "index"
     };
 
+    const about_state = {
+    "name": "about",
+    "url": "/about",
+    "component": "about"
+    };
+
     $stateProvider
         .state(index_state)
+        .state(about_state)
 
-    $urlRouterProvider.otherwise("/index");
+  $urlRouterProvider.otherwise("/index");
 
 
 
